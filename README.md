@@ -1,2 +1,0 @@
-# TGHM
-Software Engineering project
