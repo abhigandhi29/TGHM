@@ -1,15 +1,15 @@
 class Maanagement{
     instance = null;
-    Application = []
-    constructor(){
-        this.stationList = [];
-        this.trainList = [];
+    static Application = []
+    stationList = [];
+    trainList = [];
+    private constructor(){
     }
     getInsstance(){
-        if (instance==null){
-            instance = new Maanagement();
+        if (this.instance==null){
+            this.instance = new Maanagement();
         }
-        return instance;
+        return this.instance;
     }
     addStation(Station){
         this.stationList.push(Station);
