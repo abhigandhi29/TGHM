@@ -6,7 +6,7 @@ export class Account{
     protected _openDate;
     protected _password;
 
-    Constructor(name,Date,Type,Password){
+    constructor(name:string,Date,Type,Password){
         this._ID = Account.unique++;
         this._name = name;
         this._type = Type;
