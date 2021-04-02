@@ -1,12 +1,14 @@
-import Account
+from Account import Account
+import datetime
+from Enum import AccountType
 
-class Management(Account.Account):
+class Management(Account):
     Application = []
     __instance  = None
-    def __init__(self):
+    def __init__(self,Password='admin'):
         self.station_list = []
         self.train_list =  []
-
+        Account.__init__(self,'Management',datetime.datetime.now(),AccountType.Management,Password)
     def getInstance(self):
         if Management.__instance ==None:
             __instance = Management()
