@@ -1,9 +1,11 @@
-class Management{
+import {Account} from "./Account";
+class Management extends Account{
     static instance = null;
     static Application = [];
     stationList = [];
     trainList = [];
     private constructor(){
+        super();
     }
     static getInstance() : Management{
         if (this.instance==null){

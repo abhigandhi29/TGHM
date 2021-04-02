@@ -1,10 +1,16 @@
-class Account{
-    unique = 0;  
+export class Account{
+    static unique = 0;  
+    protected _ID;
+    protected _name;
+    protected _type;
+    protected _openDate;
+    protected _password;
+
     Constructor(name,Date,Type,Password){
-        this._ID = unique++;
+        this._ID = Account.unique++;
         this._name = name;
         this._type = Type;
-        this._date = Date;
+        this._openDate = Date;
         this._password = Password;
     }
     getID(){
