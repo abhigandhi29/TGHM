@@ -13,3 +13,7 @@ export enum AccountType{
     Restaurant = 3,
     Agent = 4
 }
+export enum AgentStatus{
+    Awailable = 0,
+    On_Order = 1
+}

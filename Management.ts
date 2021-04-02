@@ -1,6 +1,6 @@
 import {Account} from "./Account";
 import {AccountType} from "./Enum";
-class Management extends Account{
+export class Management extends Account{
     static instance = null;
     static Application = [];
     stationList = [];
@@ -29,6 +29,6 @@ class Management extends Account{
 
 }
 var m = Management.getInstance();
-m.trainList = []
+m.trainList = [];
 console.log('h')
 console.log(m.getID());
