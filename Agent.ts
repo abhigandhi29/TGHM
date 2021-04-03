@@ -1,4 +1,4 @@
-import {Location} from "./Location"
+import {Location} from "./Location";
 export class Agent{
     private location: Location;
     private allotted_order;
