@@ -16,7 +16,7 @@ export class Order{
     private __deliveryStation: Station;
     private __selectedItems : Array<Item>;
     private __Restaurants = new Set<Restaurant>();
-    rejectedItems : Array<Item>;
+
     orderId;
     constructor(customer:Customer,status:number=0,seat_Number:string,train:Train){
         this.__customer=customer;
@@ -64,7 +64,6 @@ export class Order{
                 if(Item!=null){
                     let index = this.__selectedItems.indexOf(Item);
                     this.Order_Status[index] = OrderStatus[index];
-                    this.rejectedItems.push(this.__selectedItems[index]);
                 }
                 break;
             case 4:
@@ -116,6 +115,9 @@ export class Order{
             }
         }
         return x;
+    }
+    getOrderStatus(){
+        return [this.__selectedItems,this.Order_Status];
     }
     
 }

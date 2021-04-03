@@ -5,10 +5,9 @@ export class Agent{
     private __location: Location;
     private __allottedorder : Order;
     IsFree : boolean;
-    restaurant : Restaurant
+    restaurant : Restaurant;
     constructor(){
-        this.IsFree=true;
-        
+        this.IsFree=true;   
     }
     addRestaurant(restaurant : Restaurant){
         this.restaurant = restaurant;
@@ -27,5 +26,4 @@ export class Agent{
         for(let i of items)
             this.__allottedorder.updateOrderStatus(Status,i);
     }
-
 }

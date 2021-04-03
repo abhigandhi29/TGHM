@@ -43,4 +43,12 @@ export class Customer extends Account{
         this.__Train = train;
         this.__seatNO = seatNo;
     }
+
+    getOrderStatus(orderId : number){
+        for(let i of this.__Orders){
+            if(i.orderId == orderId){
+                return i.getOrderStatus();
+            }
+        }
+    }
 }
