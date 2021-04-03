@@ -39,5 +39,7 @@ export enum FoodType{
     Fish = 17,
     VegMainCourse = 18,
     Sandwich = 19,
-    Dessert = 20
+    NonVeg = 20,
+    Dessert = 21,
+    Beverage = 22
 }

@@ -1,13 +1,13 @@
 import {Location} from "./Location";
 import {Order} from "./Order"
 import { Restaurant } from "./Restaurant";
+import {AgentStatus} from "./Enum"
 export class Agent{
     private __location: Location;
     private __allottedorder : Order;
-    IsFree : boolean;
+    IsFree = AgentStatus[0];
     restaurant : Restaurant;
-    constructor(){
-        this.IsFree=true;   
+    constructor(){  
     }
     addRestaurant(restaurant : Restaurant){
         this.restaurant = restaurant;
