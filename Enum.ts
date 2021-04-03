@@ -15,7 +15,7 @@ export enum AccountType{
 }
 export enum AgentStatus{
     Awailable = 0,
-    On_Order = 1
+    OnOrder = 1
 }
 
 export enum FoodType{
@@ -40,5 +40,4 @@ export enum FoodType{
     VegMainCourse = 18,
     Sandwich = 19,
     Dessert = 20
-
 }

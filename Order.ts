@@ -16,7 +16,6 @@ export class Order{
     private __deliveryStation: Station;
     private __selectedItems : Array<Item>;
     private __Restaurants = new Set<Restaurant>();
-
     orderId;
     constructor(customer:Customer,status:number=0,seat_Number:string,train:Train){
         this.__customer=customer;
