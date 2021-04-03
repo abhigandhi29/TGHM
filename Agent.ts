@@ -23,7 +23,9 @@ export class Agent{
         this.__allottedorder = order;
     }
     updateOrderStatus(Status : number){
-        this.__allottedorder.updateOrderStatus(Status);
+        let items = this.restaurant.getOrderDetails(this.__allottedorder.orderId);
+        for(let i of items)
+            this.__allottedorder.updateOrderStatus(Status,i);
     }
 
 }
