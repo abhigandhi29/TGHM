@@ -6,6 +6,7 @@ import {Station} from "./Station";
 import {Train} from "./Train";
 
 export class Order{
+    static unique =0;
     private customer:Customer;
     Order_Status:string;
     private agent: Agent;
@@ -13,6 +14,7 @@ export class Order{
     private train: Train;
     private delivery_station: Station;
     private selected_Items: [];
+    orderId;
     constructor(customer:Customer,status:number=0,agent:Agent,seat_Number:string,train:Train,delivery_station:Station,items){
         this.customer=customer;
         this.Order_Status=OrderStatus[status];
@@ -21,6 +23,7 @@ export class Order{
         this.train=train;
         this.delivery_station=delivery_station;
         this.selected_Items=items;
+        this.orderId = Order.unique++;
     }
     Track_Order(){
         return this.Order_Status;

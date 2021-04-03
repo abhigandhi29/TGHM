@@ -1,22 +1,23 @@
 import {Location} from "./Location";
+import {Order} from "./Order"
 export class Agent{
-    private location: Location;
-    private allotted_order;
-    IsFree;
+    private __location: Location;
+    private __allottedorder : Order;
+    IsFree : boolean;
     constructor(){
-        this.IsFree=0;
+        this.IsFree=true;
     }
     Update_Location(loc:Location){
-        this.location=loc;
+        this.__location=loc;
     }
     get_Location(){
-        return this.location;
+        return this.__location;
     }
-    allot_Order(){
-
+    updateAllotedOrder(order){
+        this.__allottedorder = order;
     }
-    complete_Order(){
-        
+    updateOrderStatus(Status : number){
+        this.__allottedorder.updateOrderStatus(Status);
     }
 
 }
