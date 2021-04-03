@@ -1,5 +1,5 @@
 import {Account} from "./Account"
-import {AccountType,AgentStatus} from "./Enum"
+import {AccountType,AgentStatus,FoodType} from "./Enum"
 import {Menu} from "./Menu"
 import {Management} from "./Management"
 import {Item} from "./Item"
@@ -28,8 +28,8 @@ export class Restaurant extends Account{
     getPrice(s : string){
         return this.Menu.getPrice(s);
     }
-    addItem(s : string , price : number){
-        let item = new Item(s, price);
+    addItem(s : string , price : number, type:number){
+        let item = new Item(s, price, type, this);
         this.Menu.addItem(item);
         for(let i of this.servingStation){
             i.addItem(item);
@@ -60,11 +60,25 @@ export class Restaurant extends Account{
             this.__agentTimeToGetBack[index]  = ((+time) +(+this.__timeToReach));
         }        
     }
-    updateOrderStatus(orderId : number,status : number){
+    updateOrderStatus(orderId : number,status : number, Item : Item){
         for(let i of this.orderlist){
             if(i.orderId ==orderId){
-                i.updateOrderStatus(status);
+                i.updateOrderStatus(status,Item);
             }
         }
     }
+    addStation(Station : Station){
+        Station.addRestaurant(this);
+        for(let i of this.Menu.getMenuItems()){
+            Station.addItem(i);
+        }
+    }
+    getOrderDetails(orderId : number){
+        for(let i of this.orderlist){
+            if(i.orderId ==orderId){
+                return i.getItemList(this);
+            }
+        }
+    }
+
 }

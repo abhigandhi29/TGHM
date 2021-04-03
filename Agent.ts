@@ -1,11 +1,14 @@
 import {Location} from "./Location";
 import {Order} from "./Order"
+import { Restaurant } from "./Restaurant";
 export class Agent{
     private __location: Location;
     private __allottedorder : Order;
     IsFree : boolean;
-    constructor(){
+    restaurant : Restaurant
+    constructor(restaurant : Restaurant){
         this.IsFree=true;
+        this.restaurant = restaurant;
     }
     Update_Location(loc:Location){
         this.__location=loc;

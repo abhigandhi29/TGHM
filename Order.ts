@@ -1,54 +1,123 @@
 import {Agent} from "./Agent";
 import {Customer} from "./Customer";
-import {OrderStatus} from "./Enum";
+import {AgentStatus, OrderStatus} from "./Enum";
+import { Item } from "./Item";
 import {Restaurant} from "./Restaurant";
 import {Station} from "./Station";
 import {Train} from "./Train";
 
 export class Order{
     static unique =0;
-    private customer:Customer;
-    Order_Status:string;
-    private agent: Agent;
-    private seat_Number: string;
-    private train: Train;
-    private delivery_station: Station;
-    private selected_Items: [];
+    private __customer:Customer;
+    Order_Status:Array<string>;
+    private __agent: Array<Agent>;
+    private __seatNumber: string;
+    private __train: Train;
+    private __deliveryStation: Station;
+    private __selectedItems : Array<Item>;
+    private __Restaurants = new Set<Restaurant>();
+    rejectedItems : Array<Item>;
     orderId;
-    constructor(customer:Customer,status:number=0,agent:Agent,seat_Number:string,train:Train,delivery_station:Station,items){
-        this.customer=customer;
-        this.Order_Status=OrderStatus[status];
-        this.agent=agent;
-        this.seat_Number=seat_Number;
-        this.train=train;
-        this.delivery_station=delivery_station;
-        this.selected_Items=items;
+    constructor(customer:Customer,status:number=0,seat_Number:string,train:Train){
+        this.__customer=customer;
+        //this.Order_Status=OrderStatus[status];
+        //this.__agent=agent;
+        this.__seatNumber=seat_Number;
+        this.__train=train;
+        //this.delivery_station=delivery_station;
+        //this.selected_Items=items;
         this.orderId = Order.unique++;
+    }
+    setDiliveryStation(station : Station){
+        this.__deliveryStation = station;
+    }
+    addAgent(Agent : Agent){
+        this.__agent.push(Agent);
+    }
+    addItem(Item : Item){
+        this.__selectedItems.push(Item);
+        this.__Restaurants.add(Item.restaurant);
+        this.Order_Status.push(OrderStatus[0]);
     }
     Track_Order(){
         return this.Order_Status;
     }
-    updateOrderStatus(status:number){
-        this.Order_Status=OrderStatus[status];
+    updateOrderStatus(status:number, Item : Item = null){
+        
+        switch (status){
+            case 0:
+                break;
+            case 1:
+                for(let i of this.Order_Status)
+                    i=OrderStatus[status];
+                for(let i of Array.from(this.__Restaurants)){
+                    i.orderlist.push(this);
+                }
+                break;
+            case 2:
+                if(Item!=null){
+                    let index = this.__selectedItems.indexOf(Item);
+                    this.Order_Status[index] = OrderStatus[index];
+                }
+                break;
+            case 3:
+                if(Item!=null){
+                    let index = this.__selectedItems.indexOf(Item);
+                    this.Order_Status[index] = OrderStatus[index];
+                    this.rejectedItems.push(this.__selectedItems[index]);
+                }
+                break;
+            case 4:
+                if(Item!=null){
+                    let index = this.__selectedItems.indexOf(Item);
+                    this.Order_Status[index] = OrderStatus[index];
+                }
+                break;
+            case 5:
+                if(Item!=null){
+                    let index = this.__selectedItems.indexOf(Item);
+                    this.Order_Status[index] = OrderStatus[index];
+                }
+                break;
+            case 6:
+                if(Item!=null){
+                    let index = this.__selectedItems.indexOf(Item);
+                    this.Order_Status[index] = OrderStatus[index];
+                }
+                break;
+        }
     }
     getCustomer(){
-        return this.customer;
+        return this.__customer;
     }
     getAgent(){
-        return this.agent;
+        return this.__agent;
     }
     getSeatNumber(){
-        return this.seat_Number;
+        return this.__seatNumber;
     }
     getTrain(){
-        return this.train;
+        return this.__train;
     }
     getDeliveryStation(){
-        return this.delivery_station;
+        return this.__deliveryStation;
     }
     getItems(){
-        return this.selected_Items;
+        return this.__selectedItems;
     }
+    getReciept(){
+        return this.orderId;
+    }
+    getItemList(Restaurant : Restaurant) : Array<Item>{
+        let x = [];
+        for(let i of this.__selectedItems){
+            if(i.restaurant==Restaurant){
+                x.push(i);
+            }
+        }
+        return x;
+    }
+    
 }
 // var c= new Customer("a","B","C","d");
 // var n= new Agent();

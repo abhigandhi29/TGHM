@@ -1,5 +1,46 @@
 import {Account} from "./Account"
+import { Agent } from "./Agent";
 import { AccountType,OrderStatus} from "./Enum"
-export class Customer extends Account{
+import { Order } from "./Order";
+import {Train} from "./Train"
 
+export class Customer extends Account{
+    private __seatNO : string;
+    private __Train : Train;
+    private __Orders : Array<Order>;
+    private __allotedAgent : Agent;
+    private __phoneNumber : string;
+    private __RejectedOrder : Array<Order>;
+    constructor(name:string, password:string, phoneNo : string){
+        super(name,new Date(),AccountType.Customer,password);
+        this.__phoneNumber = phoneNo;
+    }
+    addOrder(Order) : void{
+        this.__Orders.push(Order);
+    }
+    updateOrderStatus(orderId : number, status : number) : void{
+        for(let i of this.__Orders){
+            if(i.orderId == orderId){
+                i.updateOrderStatus(status);
+            }
+        }
+    }
+    getReciept(orderId : number){
+        for(let i of this.__Orders){
+            if(i.orderId == orderId){
+                return i.getReciept();
+            }
+        }
+    }
+    getOrder(orderId : Order) : Order{
+        for(let i of this.__Orders){
+            if(i.orderId == orderId){
+                return i;
+            }
+        }
+    }
+    updateTrain(seatNo : string, train : Train){
+        this.__Train = train;
+        this.__seatNO = seatNo;
+    }
 }
