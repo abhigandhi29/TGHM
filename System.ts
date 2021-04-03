@@ -1,7 +1,6 @@
 export class System{
-    active_agent;
+    static active_agent = [];
     constructor(){
-        this.active_agent=[];
     }
     
 }

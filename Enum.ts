@@ -2,9 +2,10 @@ export enum OrderStatus{
     Not_Complete = 0,
     Payment_Done = 1,
     Accepted = 2,
-    Cooking = 3,
-    On_Way = 4,
-    Delivered = 5
+    Rejected = 3,
+    Cooking = 4,
+    On_Way = 5,
+    Delivered = 6
 }
 export enum AccountType{
     Customer = 0,

@@ -7,6 +7,7 @@ import {Agent} from "./Agent"
 import {Certi} from "./Certificate"
 import {Station} from "./Station"
 import {Order} from "./Order"
+import {System} from "./System"
 
 export class Restaurant extends Account{
     orderlist : Array<Order>;
@@ -42,12 +43,15 @@ export class Restaurant extends Account{
         this.__agent.push(agent);
         this.__agentStatus.push(AgentStatus.Awailable);
         this.__agentTimeToGetBack.push(0);
+        System.active_agent.push(Agent);
+        agent.addRestaurant(this);
     }
     removeAgent(agent : Agent){
         let index = this.__agent.indexOf(agent);
         this.__agent.slice(index);
         this.__agentTimeToGetBack.slice(index);
         this.__agentStatus.splice(index);
+        System.active_agent.slice(System.active_agent.indexOf(Agent));
     }
 
     getClosestAgent(){
@@ -80,5 +84,6 @@ export class Restaurant extends Account{
             }
         }
     }
+
 
 }

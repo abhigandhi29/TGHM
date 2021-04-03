@@ -6,8 +6,11 @@ export class Agent{
     private __allottedorder : Order;
     IsFree : boolean;
     restaurant : Restaurant
-    constructor(restaurant : Restaurant){
+    constructor(){
         this.IsFree=true;
+        
+    }
+    addRestaurant(restaurant : Restaurant){
         this.restaurant = restaurant;
     }
     Update_Location(loc:Location){
