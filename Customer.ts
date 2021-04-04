@@ -5,6 +5,7 @@ import { Management } from "./Management";
 import { Order } from "./Order";
 import { Restaurant } from "./Restaurant";
 import {Train} from "./Train"
+import {Database} from "./Database";
 
 export class Customer extends Account{
     private __seatNO : string | undefined;
@@ -18,6 +19,9 @@ export class Customer extends Account{
         Management.loginC[this._username] = this;
         Management.Customers.push(this);
     }
+    // static converfrmObj(obj:Object) {
+    //     let c: Customer = new Customer(obj._name, obj._password, obj._phoneNo);
+    // }
     addOrder(Order:Order) : void{
         this.__Orders.push(Order);
     }

@@ -20,7 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da85350b-5bc3-408a-8549-52f1ebb39112" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Enum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Enum.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Customer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Customer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Database.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Database.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/Customers.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/Customers.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +42,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../React_Portfolio" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -61,6 +64,7 @@
       <workItem from="1617430766336" duration="3350000" />
       <workItem from="1617462040837" duration="1945000" />
       <workItem from="1617524441653" duration="3876000" />
+      <workItem from="1617538999784" duration="6769000" />
     </task>
     <servers />
   </component>
