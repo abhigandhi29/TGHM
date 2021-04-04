@@ -5,10 +5,10 @@ import { Order } from "./Order";
 import {Train} from "./Train"
 
 export class Customer extends Account{
-    private __seatNO : string;
-    private __Train : Train;
+    private __seatNO : string | undefined;
+    private __Train : Train | undefined;
     private __Orders : Array<Order> = [];
-    private __allotedAgent : Agent;
+    private __allotedAgent : Agent | undefined;
     private __phoneNumber : string;
     private __RejectedOrder : Array<Order> = [];
     constructor(name:string, password:string, phoneNo : string){
