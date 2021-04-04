@@ -14,6 +14,7 @@ import { Account } from './Account';
 
 
 const fs = require("fs");
+const CircularJSON = require('circular-json');
 
 export class Database{
     static instance: Database|null = null;
@@ -31,9 +32,9 @@ export class Database{
     static writeState(){
           try {
               fs.writeFileSync("./data/Customers.json", JSON.stringify(Management.Customers))
-              fs.writeFileSync("./data/Restaurants.json", JSON.stringify(Management.ApprovedRestaurants))
-              fs.writeFileSync("./data/Stations.json", JSON.stringify(Management.stationList))
-              fs.writeFileSync("./data/Trains.json", JSON.stringify(Management.trainList))
+              fs.writeFileSync("./data/Restaurants.json", CircularJSON.stringify(Management.ApprovedRestaurants))
+              fs.writeFileSync("./data/Stations.json", CircularJSON.stringify(Management.stationList))
+              fs.writeFileSync("./data/Trains.json", CircularJSON.stringify(Management.trainList))
           } catch (err) {
               console.error(err)
           }
@@ -44,12 +45,16 @@ export class Database{
         try {
             let arrCust = JSON.parse(fs.readFileSync("./data/Customers.json", 'utf8'));
             for (let i=0;i<arrCust.length;i++){
-                Management.Customers.push(Object.setPrototypeOf(arrCust[i], Customer.prototype));
+                let x = Object.setPrototypeOf(arrCust[i], Customer.prototype);
+                Management.Customers.push(x);
+                Account.unique= Math.max(x.getID(),Account.unique);
                 Account.unique++;
             }
             arrCust = JSON.parse(fs.readFileSync("./data/Restaurants.json", 'utf8'));
             for (let i=0;i<arrCust.length;i++){
-                Management.ApprovedRestaurants.push(Object.setPrototypeOf(arrCust[i], Restaurant.prototype));
+                let x = Object.setPrototypeOf(arrCust[i], Restaurant.prototype);
+                Management.ApprovedRestaurants.push(x);
+                Account.unique= Math.max(x.getID(),Account.unique);
                 Account.unique++;
             }
             arrCust = JSON.parse(fs.readFileSync("./data/Stations.json", 'utf8'));
@@ -87,4 +92,4 @@ export class Database{
 
 
 
-
+Database.readState();
