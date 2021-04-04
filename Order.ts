@@ -2,6 +2,7 @@ import {Agent} from "./Agent";
 import {Customer} from "./Customer";
 import {AgentStatus, OrderStatus} from "./Enum";
 import { Item } from "./Item";
+import { Management } from "./Management";
 import {Restaurant} from "./Restaurant";
 import {Station} from "./Station";
 import {Train} from "./Train";
@@ -34,7 +35,7 @@ export class Order{
     }
     addItem(Item : Item){
         this.__selectedItems.push(Item);
-        this.__Restaurants.add(Item.restaurant);
+        this.__Restaurants.add(Management.ApprovedRestaurants[Item.restaurant]);
         this.Order_Status.push(OrderStatus[0]);
     }
     Track_Order(){
@@ -107,7 +108,7 @@ export class Order{
     getItemList(Restaurant : Restaurant) : Array<Item>{
         let x = [];
         for(let i of this.__selectedItems){
-            if(i.restaurant==Restaurant){
+            if(Management.ApprovedRestaurants[i.restaurant]==Restaurant){
                 x.push(i);
             }
         }
