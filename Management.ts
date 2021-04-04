@@ -3,11 +3,13 @@ import {AccountType} from "./Enum";
 import {Station} from "./Station";
 import {Train} from "./Train";
 import {Restaurant} from "./Restaurant";
+import { Customer } from "./Customer";
 export class Management extends Account{
     static instance: Management|null = null;
     static Application: Array<Restaurant> = [];
-    stationList: Array<Station> = [];
-    trainList: Array<Train> = [];
+    static Customers : Array<Customer> = [];
+    static stationList: Array<Station> = [];
+    static trainList: Array<Train> = [];
     private constructor(){
         super("Management",new Date(),AccountType.Management,"admin");
     }
@@ -18,20 +20,18 @@ export class Management extends Account{
         return this.instance;
     }
     addStation(Station:Station) : void{
-        this.stationList.push(Station);
+        Management.stationList.push(Station);
     }
     removeStation(Station:Station) : void{
-        this.stationList.splice(this.stationList.indexOf(Station));
+        Management.stationList.splice(Management.stationList.indexOf(Station));
     }
     addTrain(Train:Train) : void{
-        this.trainList.push(Train);
+        Management.trainList.push(Train);
     }
     removeTrain(Train:Train) : void{
-        this.trainList.slice(this.trainList.indexOf(Train));
+        Management.trainList.splice(Management.trainList.indexOf(Train));
     }
-
 }
 var m = Management.getInstance();
-m.trainList = [];
 console.log('h')
 console.log(m.getID());

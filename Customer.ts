@@ -1,7 +1,9 @@
 import {Account} from "./Account"
 import { Agent } from "./Agent";
 import { AccountType,OrderStatus} from "./Enum"
+import { Management } from "./Management";
 import { Order } from "./Order";
+import { Restaurant } from "./Restaurant";
 import {Train} from "./Train"
 
 export class Customer extends Account{
@@ -14,6 +16,7 @@ export class Customer extends Account{
     constructor(name:string, password:string, phoneNo : string){
         super(name,new Date(),AccountType.Customer,password);
         this.__phoneNumber = phoneNo;
+        Management.Customers.push(this);
     }
     addOrder(Order:Order) : void{
         this.__Orders.push(Order);
