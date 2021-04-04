@@ -10,17 +10,17 @@ import {Order} from "./Order"
 import {System} from "./System"
 
 export class Restaurant extends Account{
-    orderlist : Array<Order>;
+    orderlist : Array<Order> = [];
     private __timeToReach : number;
-    private __agent : Array<Agent>;
-    private __agentStatus = [];
-    private __agentTimeToGetBack : Array<number>;
+    private __agent : Array<Agent> = [];
+    private __agentStatus: Array<AgentStatus> = [];
+    private __agentTimeToGetBack : Array<number> = [];
     accetanceStatus = false;
     Menu = new Menu();
-    certi = [];
-    servingStation : Array<Station>;
+    certi: Array<Certi> = [];
+    servingStation : Array<Station> = [];
 
-    constructor(name,password,timeToReach : number) {
+    constructor(name:string,password:string,timeToReach : number) {
         super(name,new Date(),AccountType.Restaurant,password);
         Management.Application.push(this);
         this.__timeToReach = timeToReach;
@@ -41,9 +41,9 @@ export class Restaurant extends Account{
     }
     AddAgent(agent : Agent){
         this.__agent.push(agent);
-        this.__agentStatus.push(AgentStatus.Awailable);
+        this.__agentStatus.push(AgentStatus.Available);
         this.__agentTimeToGetBack.push(0);
-        System.active_agent.push(Agent);
+        System.active_agent.push(agent);
         agent.addRestaurant(this);
     }
     removeAgent(agent : Agent){
@@ -51,13 +51,13 @@ export class Restaurant extends Account{
         this.__agent.slice(index);
         this.__agentTimeToGetBack.slice(index);
         this.__agentStatus.splice(index);
-        System.active_agent.slice(System.active_agent.indexOf(Agent));
+        System.active_agent.slice(System.active_agent.indexOf(agent));
     }
 
     getClosestAgent(){
         return Math.min.apply(Math,this.__agentTimeToGetBack);   
     }
-    allotAgent(order,time : number){
+    allotAgent(order: Order,time : number){
         if(time < this.getClosestAgent()){
             let index = this.__agentTimeToGetBack.indexOf(this.getClosestAgent());
             this.__agent[index].updateAllotedOrder(order);

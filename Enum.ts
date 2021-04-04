@@ -14,7 +14,7 @@ export enum AccountType{
     Agent = 4
 }
 export enum AgentStatus{
-    Awailable = 0,
+    Available = 0,
     OnOrder = 1
 }
 

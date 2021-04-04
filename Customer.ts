@@ -7,15 +7,15 @@ import {Train} from "./Train"
 export class Customer extends Account{
     private __seatNO : string;
     private __Train : Train;
-    private __Orders : Array<Order>;
+    private __Orders : Array<Order> = [];
     private __allotedAgent : Agent;
     private __phoneNumber : string;
-    private __RejectedOrder : Array<Order>;
+    private __RejectedOrder : Array<Order> = [];
     constructor(name:string, password:string, phoneNo : string){
         super(name,new Date(),AccountType.Customer,password);
         this.__phoneNumber = phoneNo;
     }
-    addOrder(Order) : void{
+    addOrder(Order:Order) : void{
         this.__Orders.push(Order);
     }
     updateOrderStatus(orderId : number, status : number) : void{
@@ -32,12 +32,13 @@ export class Customer extends Account{
             }
         }
     }
-    getOrder(orderId : Order) : Order{
+    getOrder(orderId : number) : Order|null{
         for(let i of this.__Orders){
             if(i.orderId == orderId){
                 return i;
             }
         }
+        return null;
     }
     updateTrain(seatNo : string, train : Train){
         this.__Train = train;

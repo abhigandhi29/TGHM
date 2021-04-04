@@ -1,3 +1,5 @@
+import {AccountType} from "./Enum";
+
 export class Account{
     static unique = 0;  
     protected _ID;
@@ -6,7 +8,7 @@ export class Account{
     protected _openDate;
     protected _password;
 
-    constructor(name:string,Date,Type,Password){
+    constructor(name:string,Date:Date,Type:AccountType,Password:string){
         this._ID = Account.unique++;
         this._name = name;
         this._type = Type;

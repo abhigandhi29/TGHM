@@ -3,7 +3,7 @@ export class Location{
     x:number;
     y:number;
     LandMark:string;
-    constructor(x,y,LandMark){
+    constructor(x:number,y:number,LandMark:string){
         this.x=x;
         this.y=y;
         this.LandMark=LandMark;

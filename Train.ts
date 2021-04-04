@@ -1,7 +1,9 @@
+import {Station} from "./Station";
+
 export class Train{
     Name:string;
-    private route;
-    constructor(name:string,route){
+    private route:Map<Station, TimeRanges>;
+    constructor(name:string,route:Map<Station, TimeRanges>){
         this.Name=name;
         this.route = new Map(route);
     }

@@ -1,17 +1,20 @@
+import {Restaurant} from "./Restaurant";
+import {Item} from "./Item";
+
 export class Station{
     name;
-    private __restaurant = [];
+    private __restaurant: Array<Restaurant> = [];
     private __food = new Set();
-    constructor(name){
+    constructor(name:string){
         this.name = name;
     }
-    addRestaurant(restaurant){
+    addRestaurant(restaurant:Restaurant){
         this.__restaurant.push(restaurant);
     }
     getRestaurant(){
         return this.__restaurant;
     }
-    addItem(item){
+    addItem(item: Item){
         this.__food.add(item);
     }
     getItem(){

@@ -1,7 +1,7 @@
 import {Item} from "./Item"
 import { Restaurant } from "./Restaurant";
 export class Menu{
-    private __Items : Array<Item>;
+    private __Items : Array<Item> = [];
     constructor(){
     }
     getMenuItems(){

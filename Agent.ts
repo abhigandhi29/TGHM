@@ -18,12 +18,14 @@ export class Agent{
     get_Location(){
         return this.__location;
     }
-    updateAllotedOrder(order){
+    updateAllotedOrder(order: Order){
         this.__allottedorder = order;
     }
     updateOrderStatus(Status : number){
         let items = this.restaurant.getOrderDetails(this.__allottedorder.orderId);
-        for(let i of items)
-            this.__allottedorder.updateOrderStatus(Status,i);
+        if (items) {
+            for (let i of items)
+                this.__allottedorder.updateOrderStatus(Status, i);
+        }
     }
 }

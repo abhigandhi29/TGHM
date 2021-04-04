@@ -9,25 +9,25 @@ import {Train} from "./Train";
 export class Order{
     static unique =0;
     private __customer:Customer;
-    Order_Status:Array<string>;
-    private __agent: Array<Agent>;
+    Order_Status:Array<string> = [];
+    private __agent: Array<Agent> = [];
     private __seatNumber: string;
     private __train: Train;
     private __deliveryStation: Station;
-    private __selectedItems : Array<Item>;
+    private __selectedItems : Array<Item> = [];
     private __Restaurants = new Set<Restaurant>();
     orderId;
-    constructor(customer:Customer,status:number=0,seat_Number:string,train:Train){
+    constructor(customer:Customer,status:number=0,seat_Number:string,train:Train, delivery_station:Station){
         this.__customer=customer;
         //this.Order_Status=OrderStatus[status];
         //this.__agent=agent;
         this.__seatNumber=seat_Number;
         this.__train=train;
-        //this.delivery_station=delivery_station;
+        this.__deliveryStation=delivery_station;
         //this.selected_Items=items;
         this.orderId = Order.unique++;
     }
-    setDiliveryStation(station : Station){
+    setDeliveryStation(station : Station){
         this.__deliveryStation = station;
     }
     addAgent(Agent : Agent){
@@ -41,8 +41,7 @@ export class Order{
     Track_Order(){
         return this.Order_Status;
     }
-    updateOrderStatus(status:number, Item : Item = null){
-        
+    updateOrderStatus(status:number, Item : Item|null = null){
         switch (status){
             case 0:
                 break;
