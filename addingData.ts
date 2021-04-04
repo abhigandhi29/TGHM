@@ -12,7 +12,7 @@ import {Management} from './Management';
 import { readFile } from 'node:fs';
 import { Database } from './Database';
 
-Database.readState();
+//Database.readState();
 let m = Management.getInstance();
 let c1 = new Customer("sajal","sajalchh","hello","9293945535");
 let c2 = new Customer("shaswat","shaswat621","kgpianboy","9293945235");
@@ -125,4 +125,6 @@ r8.addItem("chicken noodles",60,9);
 r8.addItem("fish nuggets",360,17);
 r8.addItem("prons",700,20);
 
-Database.writeState();
+console.log(r1);
+
+//Database.writeState();

@@ -16,6 +16,7 @@ export class Agent extends Account{
         this.__allottedorder = allottedOrder;
         this.restaurant = restaurant;
         this.IsFree = AgentStatus[0];
+        restaurant.AddAgent(this);
     }
 
     addRestaurant(restaurant : Restaurant){

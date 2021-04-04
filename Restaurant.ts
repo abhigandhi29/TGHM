@@ -12,7 +12,7 @@ import { Time } from "./Time"
 
 export class Restaurant extends Account{
     orderlist : Array<Order> = [];
-    private __timeToReach : Array<Time>;
+    private __timeToReach : Array<Time> = [];
     private __agent : Array<Agent> = [];
     private __agentStatus: Array<AgentStatus> = [];
     private __agentTimeToGetBack : Array<number> = [];
