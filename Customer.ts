@@ -12,10 +12,10 @@ export class Customer extends Account{
     private __Orders : Array<Order> = [];
     private __allotedAgent : Agent | undefined;
     private __phoneNumber : string;
-    private __RejectedOrder : Array<Order> = [];
-    constructor(name:string, password:string, phoneNo : string){
-        super(name,new Date(),AccountType.Customer,password);
+    constructor(name:string,username : string, password:string, phoneNo : string){
+        super(name,username,new Date(),AccountType.Customer,password);
         this.__phoneNumber = phoneNo;
+        Management.loginC[this._username] = this;
         Management.Customers.push(this);
     }
     addOrder(Order:Order) : void{
@@ -54,5 +54,11 @@ export class Customer extends Account{
                 return i.getOrderStatus();
             }
         }
+    }
+    checkPasswords(userName : string,password : string){
+
+    }
+    getOrderList() : Array<Order>{
+        return this.__Orders;
     }
 }

@@ -4,14 +4,19 @@ import {Station} from "./Station";
 import {Train} from "./Train";
 import {Restaurant} from "./Restaurant";
 import { Customer } from "./Customer";
+import { Agent } from "./Agent";
 export class Management extends Account{
     static instance: Management|null = null;
     static Application: Array<Restaurant> = [];
     static Customers : Array<Customer> = [];
     static stationList: Array<Station> = [];
     static trainList: Array<Train> = [];
+    static loginC : Map<string, Customer> = new Map<string, Customer>();
+    static loginR : Map<string, Restaurant> = new Map<string, Restaurant>();
+    static loginA : Map<string, Agent> = new Map<string, Agent>();
+    static trainNo : Map<string,Train> = new Map<string,Train>();
     private constructor(){
-        super("Management",new Date(),AccountType.Management,"admin");
+        super("Management","Manager",new Date(),AccountType.Management,"admin");
     }
     static getInstance() : Management{
         if (this.instance==null){
@@ -21,12 +26,14 @@ export class Management extends Account{
     }
     addStation(Station:Station) : void{
         Management.stationList.push(Station);
+       
     }
     removeStation(Station:Station) : void{
         Management.stationList.splice(Management.stationList.indexOf(Station));
     }
     addTrain(Train:Train) : void{
         Management.trainList.push(Train);
+
     }
     removeTrain(Train:Train) : void{
         Management.trainList.splice(Management.trainList.indexOf(Train));

@@ -1,14 +1,17 @@
 import {Location} from "./Location";
 import {Order} from "./Order"
 import { Restaurant } from "./Restaurant";
-import {AgentStatus} from "./Enum"
-export class Agent{
+import {AccountType, AgentStatus} from "./Enum"
+import { Account } from "./Account";
+export class Agent extends Account{
     private __location: Location|null;
     private __allottedorder : Order|null;
     IsFree;
     restaurant : Restaurant;
-
-    constructor(restaurant: Restaurant, location:Location|null = null, allottedOrder: Order|null = null){
+    deliveredCount : number = 0;
+    failedCount : number = 0;
+    constructor(name:string,username:string,password:string,restaurant: Restaurant, location:Location|null = null, allottedOrder: Order|null = null){
+        super(name,username,new Date(),AccountType.Agent,password);
         this.__location = location;
         this.__allottedorder = allottedOrder;
         this.restaurant = restaurant;

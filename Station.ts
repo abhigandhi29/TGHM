@@ -5,6 +5,8 @@ export class Station{
     name;
     private __restaurant: Array<Restaurant> = [];
     private __food = new Set();
+    deliveredCount : number = 0;
+    failedCount : number = 0;
     constructor(name:string){
         this.name = name;
     }

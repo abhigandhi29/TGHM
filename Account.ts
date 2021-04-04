@@ -7,11 +7,12 @@ export class Account{
     protected _type;
     protected _openDate;
     protected _password;
-
-    constructor(name:string,Date:Date,Type:AccountType,Password:string){
+    protected _username;
+    constructor(name:string,username:string,Date:Date,Type:AccountType,Password:string){
         this._ID = Account.unique++;
         this._name = name;
         this._type = Type;
+        this._username = username;
         this._openDate = Date;
         this._password = Password;
     }

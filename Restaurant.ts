@@ -19,9 +19,9 @@ export class Restaurant extends Account{
     Menu = new Menu();
     certi: Array<Certi> = [];
     servingStation : Array<Station> = [];
-
-    constructor(name:string,password:string,timeToReach : number) {
-        super(name,new Date(),AccountType.Restaurant,password);
+    
+    constructor(name:string,username:string,password:string,timeToReach : number) {
+        super(name,username,new Date(),AccountType.Restaurant,password);
         Management.Application.push(this);
         this.__timeToReach = timeToReach;
 
