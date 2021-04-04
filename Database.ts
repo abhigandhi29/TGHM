@@ -9,6 +9,8 @@ import { Station } from './Station';
 import { Time } from './Time';
 import {Train} from './Train';
 import {Management} from './Management';
+import { readFile } from 'node:fs';
+import { Account } from './Account';
 
 
 const fs = require("fs");
@@ -29,7 +31,7 @@ export class Database{
     static writeState(){
           try {
               fs.writeFileSync("./data/Customers.json", JSON.stringify(Management.Customers))
-              fs.writeFileSync("./data/Restaurants.json", JSON.stringify(Management.Application))
+              fs.writeFileSync("./data/Restaurants.json", JSON.stringify(Management.ApprovedRestaurants))
               fs.writeFileSync("./data/Stations.json", JSON.stringify(Management.stationList))
               fs.writeFileSync("./data/Trains.json", JSON.stringify(Management.trainList))
           } catch (err) {
@@ -43,10 +45,12 @@ export class Database{
             let arrCust = JSON.parse(fs.readFileSync("./data/Customers.json", 'utf8'));
             for (let i=0;i<arrCust.length;i++){
                 Management.Customers.push(Object.setPrototypeOf(arrCust[i], Customer.prototype));
+                Account.unique++;
             }
             arrCust = JSON.parse(fs.readFileSync("./data/Restaurants.json", 'utf8'));
             for (let i=0;i<arrCust.length;i++){
-                Management.Application.push(Object.setPrototypeOf(arrCust[i], Restaurant.prototype));
+                Management.ApprovedRestaurants.push(Object.setPrototypeOf(arrCust[i], Restaurant.prototype));
+                Account.unique++;
             }
             arrCust = JSON.parse(fs.readFileSync("./data/Stations.json", 'utf8'));
             for (let i=0;i<arrCust.length;i++){
@@ -80,5 +84,7 @@ export class Database{
         return null;
     }
 }
+
+
 
 

@@ -1,5 +1,5 @@
 import {Account} from "./Account"
-import {AccountType,AgentStatus,FoodType} from "./Enum"
+import {AccountType,AgentStatus,ApprovalStatus,FoodType} from "./Enum"
 import {Menu} from "./Menu"
 import {Management} from "./Management"
 import {Item} from "./Item"
@@ -8,22 +8,23 @@ import {Certi} from "./Certificate"
 import {Station} from "./Station"
 import {Order} from "./Order"
 import {System} from "./System"
+import { Time } from "./Time"
 
 export class Restaurant extends Account{
     orderlist : Array<Order> = [];
-    private __timeToReach : number;
+    private __timeToReach : Array<Time>;
     private __agent : Array<Agent> = [];
     private __agentStatus: Array<AgentStatus> = [];
     private __agentTimeToGetBack : Array<number> = [];
-    accetanceStatus = false;
+    accetanceStatus = ApprovalStatus[0];
     Menu = new Menu();
     certi: Array<Certi> = [];
     servingStation : Array<Station> = [];
     
-    constructor(name:string,username:string,password:string,timeToReach : number) {
+    constructor(name:string,username:string,password:string) {
         super(name,username,new Date(),AccountType.Restaurant,password);
         Management.Application.push(this);
-        this.__timeToReach = timeToReach;
+        //this.__timeToReach = timeToReach;
 
     }
     getPrice(s : string){
@@ -71,8 +72,9 @@ export class Restaurant extends Account{
             }
         }
     }
-    addStation(Station : Station){
+    addStation(Station : Station, time:Time){
         Station.addRestaurant(this);
+        this.__timeToReach.push(time);
         for(let i of this.Menu.getMenuItems()){
             Station.addItem(i);
         }

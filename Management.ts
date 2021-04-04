@@ -1,5 +1,5 @@
 import {Account} from "./Account";
-import {AccountType} from "./Enum";
+import {AccountType, ApprovalStatus} from "./Enum";
 import {Station} from "./Station";
 import {Train} from "./Train";
 import {Restaurant} from "./Restaurant";
@@ -7,6 +7,7 @@ import { Customer } from "./Customer";
 import { Agent } from "./Agent";
 export class Management extends Account{
     static instance: Management|null = null;
+    static ApprovedRestaurants : Array<Restaurant> = [];
     static Application: Array<Restaurant> = [];
     static Customers : Array<Customer> = [];
     static stationList: Array<Station> = [];
@@ -38,7 +39,15 @@ export class Management extends Account{
     removeTrain(Train:Train) : void{
         Management.trainList.splice(Management.trainList.indexOf(Train));
     }
+    updateRestarantStatus(Restarant:Restaurant,status:number) : void{
+        let x = Management.Application.indexOf(Restarant);
+        Restarant.accetanceStatus = ApprovalStatus[status];
+        Management.Application.slice(x);
+        if(status != ApprovalStatus.Rejected){
+            Management.ApprovedRestaurants.push(Restarant)
+        }
+        
+    }
 }
 var m = Management.getInstance();
-console.log('h')
 console.log(m.getID());
