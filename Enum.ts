@@ -11,7 +11,8 @@ export enum AccountType{
     Customer = 0,
     Management = 2,
     Restaurant = 3,
-    Agent = 4
+    Agent = 4,
+    None = 5
 }
 export enum AgentStatus{
     Available = 0,

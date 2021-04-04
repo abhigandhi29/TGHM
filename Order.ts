@@ -17,15 +17,14 @@ export class Order{
     private __selectedItems : Array<Item> = [];
     private __Restaurants = new Set<Restaurant>();
     orderId;
-    constructor(customer:Customer,status:number=0,seat_Number:string,train:Train, delivery_station:Station){
+    constructor(customer:Customer,status:number=0,items:Array<Item>,seat_Number:string,train:Train, delivery_station:Station){
         this.__customer=customer;
-        //this.Order_Status=OrderStatus[status];
-        //this.__agent=agent;
         this.__seatNumber=seat_Number;
         this.__train=train;
         this.__deliveryStation=delivery_station;
-        //this.selected_Items=items;
+        this.__selectedItems=items;
         this.orderId = Order.unique++;
+        customer.addOrder(this);
     }
     setDeliveryStation(station : Station){
         this.__deliveryStation = station;
