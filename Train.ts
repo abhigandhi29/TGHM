@@ -1,5 +1,5 @@
 import {Station} from "./Station";
-
+    
 export class Train{
     Name:string;
     private route:Map<Station, TimeRanges>;
