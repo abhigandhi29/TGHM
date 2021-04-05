@@ -22,7 +22,7 @@ export class Train{
     addStation(station:Station, time : Time){
         this.routeTime.set(station.name,time);
         this.routeStation.set(station.name,station.getID());
-        console.log(this.routeTime);
+        //console.log(this.routeTime);
     }
     Return_RouteTime(): Map<string, Time>{
         return this.routeTime;

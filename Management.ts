@@ -54,7 +54,10 @@ export class Management extends Account{
     updateRestarantStatus(Restarant:Restaurant,status:number) : void{
         let x = Management.Application.indexOf(Restarant);
         Restarant.accetanceStatus = ApprovalStatus[status];
-        Management.Application.slice(x);
+        //console.log(Management.Application);
+        Management.Application.splice(x,1);
+        //console.log(x);
+        //console.log(Management.Application);
         if(status != ApprovalStatus.Rejected){
             Management.ApprovedRestaurants.set(Restarant.getID(),(Restarant));
             Management.restaurantForStoring.push(Restarant);
@@ -62,4 +65,4 @@ export class Management extends Account{
     }
 }
 var m = Management.getInstance();
-console.log(m.getID());
+//console.log(m.getID());

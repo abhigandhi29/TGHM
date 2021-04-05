@@ -26,7 +26,7 @@ export class Station{
         this.__food.add(item);
     }
     getItem(){
-        console.log(this.__food);
+        //console.log(this.__food);
         return Array.from(this.__food);
     }
     getID(){
