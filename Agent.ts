@@ -50,6 +50,12 @@ export class Agent extends Account{
                 }
             }
         }
+        if(Status == 6){
+            this.deliveredCount++;
+        }
+        else{
+            this.failedCount++;
+        }
     }
     updateStatus(status: number){
         let r = Management.ApprovedRestaurants.get(this.restaurant);

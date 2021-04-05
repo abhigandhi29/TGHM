@@ -89,6 +89,7 @@ export class Order{
                 if(Item!=null){
                     let index = this.__selectedItems.indexOf(Item);
                     this.Order_Status[index] = OrderStatus[index];
+                    
                 }
                 break;
         }
