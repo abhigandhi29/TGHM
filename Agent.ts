@@ -19,6 +19,7 @@ export class Agent extends Account{
         this.IsFree = AgentStatus[0];
         Management.agentList.set(this.getID(), this);
         Management.agentListForStoring.push(this);
+        Management.loginA.set(username,this);
         restaurant.AddAgent(this);
     }
 

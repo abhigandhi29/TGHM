@@ -25,6 +25,7 @@ export class Restaurant extends Account{
         super(name,username,new Date(),AccountType.Restaurant,password);
         Management.Application.push(this);
         //this.__timeToReach = timeToReach;
+        Management.loginR.set(username,this);
 
     }
     getPrice(s : string){
@@ -72,7 +73,7 @@ export class Restaurant extends Account{
     //getClosestAgent(){
     //    return Math.min.apply(Math,this.__agentTimeToGetBack);   
     //}
-    allotAgent(order: Order,agent : Agent,time : number){
+    allotAgent(order: Order,agent : Agent,time : number | null= null){
         let index = this.__agent.indexOf(agent.getID());
         let ag=Management.agentList.get(this.__agent[index]);
         if(ag)

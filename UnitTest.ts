@@ -1,5 +1,5 @@
 import {Account} from "./Account"
-import {AccountType,AgentStatus, FoodType} from "./Enum"
+import {AccountType,AgentStatus, FoodType, OrderStatus} from "./Enum"
 import {Menu} from "./Menu"
 import {Management} from "./Management"
 import {Item} from "./Item"
@@ -219,69 +219,92 @@ function UnitTestingMenu(){
         console.log("Add Item functionality working properly");
     }
     let item = new Item("momos2",500,FoodType.Momos,r1.getID());
+    menu.addItem(item);
     if(menu.getPrice("momos2")==500){
         menu.removeItem(item);
+        //console.log(menu.getPrice("momos2"))
         if(menu.getPrice("momos2")==-1){
             console.log("Remove fuctionality working properly");
         }
     }
     console.log("-------------------------------------------------------------------------------");
 }
+var order1 : Order;
+function UnitTestingOrders(){
+    console.log("-------------------------------UnitTestingOrders-------------------------------");
+    order1 = new Order(c1,0,r1.Menu.getMenuItems(),"1",t1,null);
+    if(order1.getCustomer()===c1 && order1.getSeatNumber()==="1" && order1.getTrain()===t1){
+        console.log("order allotment checked");
+    }
+    order1.updateOrderStatus(1);
+    let x = r1.getOrderDetails(order1.orderId);
+    if(x)
+    if(x.length == 8)
+        console.log("Get order details working properly both in restaurant and order");
+    if(order1.getReciept==order1.getReciept){
+        console.log("get Reciept working properly");
+    }
+    if(x){
+        order1.updateOrderStatus(4,x[0]);
+        if(order1.Order_Status[0] == OrderStatus[4]){
+            console.log("update order status working properly");
+        }
+    }
+    
+
+    console.log("-------------------------------------------------------------------------------");
+}
 
 function UnitTestingRestaurants(){
     console.log("-------------------------------UnitTestingRestaurants--------------------------");
-    if(c1.getID()!=1 || c2.getID()!=2 || c3.getID()!= 3){
-        console.log("error in unique ID");
+    let res = r1;
+    if(res.getPrice("fries")!=-1){
+        console.log("get price working perfectly");
+    }
+    console.log("adding Item and Adding Station working properly");
+    res.allotAgent(order1,a1);
+    if(order1.getAgent()[0]==a1){
+        console.log("agent allotment working properly")
     }
 
     console.log("-------------------------------------------------------------------------------");
 }
 
-function UnitTestingOrders(){
-    console.log("-------------------------------UnitTestingOrders-------------------------------");
-    if(c1.getID()!=1 || c2.getID()!=2 || c3.getID()!= 3){
-        console.log("error in unique ID");
-    }
 
-    console.log("-------------------------------------------------------------------------------");
-}
 
 function UnitTestingAgents(){
     console.log("-------------------------------UnitTestingAgents-------------------------------");
-
+    let agent = a1;
+    
+    
     console.log("-------------------------------------------------------------------------------");
 }
 
 function UnitTestingStations(){
     console.log("-------------------------------UnitTestingStations-----------------------------");
     let statiom = s1;
-
-    if(s1.getRestaurant()==[r1.getID(),r8.getID()]){
-        console.log("Adding Station working");
+    console.log(s1.getRestaurant());
+    if(s1.getRestaurant().length==2){
+        console.log("Add Station and get Station working");
     }
-    //console.log(s1.getRestaurant(),r1.getID(),r8.getID())
     if(s1.getItem().length==11){
-        console.log("Adding Item working");
-    }
+        console.log("Add Item and get Item working");
+    } 
     console.log("-------------------------------------------------------------------------------");
 }
 
 function UnitTestingTrains(){
     console.log("-------------------------------UnitTestingTrains-----------------------------");
-    if(c1.getID()!=1 || c2.getID()!=2 || c3.getID()!= 3){
-        console.log("error in unique ID");
-    }
-
-    console.log("-------------------------------------------------------------------------------");
-}
-
-
-function UnitTestingAccount(){
-    console.log("-------------------------------UnitTestingCustomer-----------------------------");
-    if(c1.getID()!=1 || c2.getID()!=2 || c3.getID()!= 3){
-        console.log("error in unique ID");
-    }
-
+        let train = t1;
+        if(t1.Return_RouteStation().size==4 && t1.Return_RouteTime().size==4){
+            console.log("adding Station and retuen functions working properly");
+        }
+        if(t1.TrainNo == "12951"){
+            console.log("train number allotement correct");
+        }
+        if(t1.Name == "mumbai rajdhani"){
+            console.log("train name allotement correct");
+        }
     console.log("-------------------------------------------------------------------------------");
 }
 
@@ -289,8 +312,8 @@ UnitTestingManagement();
 UnitTestingTime();
 UnitTestingItems();
 UnitTestingMenu();
-UnitTestingRestaurants();
 UnitTestingOrders();
+UnitTestingRestaurants();
 UnitTestingAgents();
 UnitTestingStations();
 UnitTestingTrains();

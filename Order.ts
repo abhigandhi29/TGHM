@@ -14,11 +14,11 @@ export class Order{
     private __agent: Array<Agent> = [];
     private __seatNumber: string;
     private __train: Train;
-    private __deliveryStation: Station;
+    private __deliveryStation: Station| null;
     private __selectedItems : Array<Item> = [];
     private __Restaurants = new Set<Restaurant>();
     orderId;
-    constructor(customer:Customer,status:number=0,items:Array<Item>,seat_Number:string,train:Train, delivery_station:Station){
+    constructor(customer:Customer,status:number=0,items:Array<Item>,seat_Number:string,train:Train, delivery_station:Station|null = null){
         this.__customer=customer;
         customer.addOrder(this);
         this.__seatNumber=seat_Number;
