@@ -48,35 +48,35 @@ export class Database{
             let arrCust = JSON.parse(fs.readFileSync("./data/Customers.json", 'utf8'));
             for (let i=0;i<arrCust.length;i++){
                 let x = Object.setPrototypeOf(arrCust[i], Customer.prototype);
-                Management.Customers[x.getID()] = (x);
-                Management.loginC[x.getUsername()] = x;
+                Management.Customers.set(x.getID(),(x));
+                Management.loginC.set(x.getUsername(),x);
                 Account.unique= Math.max(x.getID(),Account.unique);
                 Account.unique++;
             }
             arrCust = JSON.parse(fs.readFileSync("./data/Restaurants.json", 'utf8'));
             for (let i=0;i<arrCust.length;i++){
                 let x = Object.setPrototypeOf(arrCust[i], Restaurant.prototype);
-                Management.ApprovedRestaurants[x.getID()] =(x);
-                Management.loginR[x.getUsername()] = x;
+                Management.ApprovedRestaurants.set(x.getID(),(x));
+                Management.loginR.set(x.getUsername(), x);
                 Account.unique= Math.max(x.getID(),Account.unique);
                 Account.unique++;
             }
             arrCust = JSON.parse(fs.readFileSync("./data/Stations.json", 'utf8'));
             for (let i=0;i<arrCust.length;i++){
                 let x = Object.setPrototypeOf(arrCust[i], Station.prototype)
-                Management.stationList[x.getID()] = (x);
+                Management.stationList.set(x.getID(), (x));
             }
             arrCust = JSON.parse(fs.readFileSync("./data/Trains.json", 'utf8'));
             for (let i=0;i<arrCust.length;i++){
                 let x = Object.setPrototypeOf(arrCust[i], Train.prototype);
-                Management.trainList[x.getID()] = (x);
-                Management.trainNo[x.TrainNo] = x;
+                Management.trainList.set(x.getID(), (x));
+                Management.trainNo.set(x.TrainNo, x);
             }
             arrCust = JSON.parse(fs.readFileSync("./data/Agents.json", 'utf8'));
             for (let i=0;i<arrCust.length;i++){
                 let x = Object.setPrototypeOf(arrCust[i], Agent.prototype);
-                Management.agentList[x.getID()] = (x);
-                Management.loginA[x.getUsername()] = x;
+                Management.agentList.set(x.getID(), (x));
+                Management.loginA.set(x.getUsername(), x);
                 System.active_agent.push(x);
             }
         } catch (err) {
@@ -99,13 +99,13 @@ export class Database{
         let [rStation,rTime]=Train.Return_Route();
         let reqStations = [];
         for(let key of Array.from( rTime.keys()) ) {
-            if(rTime[key].lessThanEqual(timemax)&&timemin.lessThanEqual(rTime[key])){
+            if(rTime.get(key)[1].lessThanEqual(timemax)&&timemin.lessThanEqual(rTime.get(key)[1])){
                 reqStations.push(key);
             }
         }
         let items= new Map<string,Array<string>>();
         for(let stat of reqStations){
-            items[stat]=rStation[stat].getItem();
+            items.set(stat,rStation.get(stat)[1].getItem());
         }
         return items;
     }
@@ -118,7 +118,7 @@ export class Database{
 }
 
 let c = new Customer("Shashvat", "Shash", "123", "123456789");
-let r = new Restaurant("Dominos", "Dom", "234", 15);
+let r = new Restaurant("Dominos", "Dom", "234");
 Database.writeState();
 
 

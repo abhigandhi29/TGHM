@@ -108,7 +108,7 @@ export class Order{
     getItemList(Restaurant : Restaurant) : Array<Item>{
         let x = [];
         for(let i of this.__selectedItems){
-            if(Management.ApprovedRestaurants[i.restaurant]==Restaurant){
+            if(Management.ApprovedRestaurants.get(i.restaurant)==Restaurant){
                 x.push(i);
             }
         }

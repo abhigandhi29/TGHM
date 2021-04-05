@@ -17,7 +17,7 @@ export class Agent extends Account{
         this.__allottedorder = allottedOrder;
         this.restaurant = restaurant.getID();
         this.IsFree = AgentStatus[0];
-        Management.agentList[this.getID()] = this;
+        Management.agentList.set(this.getID(), this);
         Management.agentListForStoring.push(this);
         restaurant.AddAgent(this);
     }
@@ -40,7 +40,7 @@ export class Agent extends Account{
 
     updateOrderStatus(Status : number){
         if (this.__allottedorder) {
-            let items = Management.ApprovedRestaurants[this.restaurant].getOrderDetails(this.__allottedorder.orderId);
+            let items = Management.ApprovedRestaurants.get(this.restaurant).getOrderDetails(this.__allottedorder.orderId);
             if (items) {
                 for (let i of items)
                     this.__allottedorder.updateOrderStatus(Status, i);
