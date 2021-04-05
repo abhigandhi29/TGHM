@@ -7,6 +7,13 @@ export enum OrderStatus{
     On_Way = 5,
     Delivered = 6
 }
+
+export enum ApprovalStatus{
+    Pending = 0,
+    Approved = 1,
+    Rejected = 2
+}
+
 export enum AccountType{
     Customer = 0,
     Management = 2,

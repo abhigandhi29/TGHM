@@ -1,1 +1,1 @@
-[]
+[{"Name":"mumbai rajdhani","routeTime":{"Station":{"min":30,"hour":16,"day":0}},"routeStation":{"Station":14},"TrainNo":"12951","__Id":4},{"Name":"Howrah Express","routeTime":{"Station":{"min":10,"hour":22,"day":0}},"routeStation":{"Station":12},"TrainNo":"12833","__Id":5}]

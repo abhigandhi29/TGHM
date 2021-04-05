@@ -4,8 +4,8 @@ export class Item{
     name: string;
     price: number;
     type : string;
-    restaurant : Restaurant;
-    constructor(name : string,price : number,type : number,restaurant : Restaurant){
+    restaurant : number;
+    constructor(name : string,price : number,type : number,restaurant : number){
         this.name = name;
         this.price = price;
         this.type = FoodType[type];

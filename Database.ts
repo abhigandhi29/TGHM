@@ -9,9 +9,13 @@ import { Station } from './Station';
 import { Time } from './Time';
 import {Train} from './Train';
 import {Management} from './Management';
+import { readFile } from 'node:fs';
+import { Account } from './Account';
+import { System } from './System';
 
 
 const fs = require("fs");
+const CircularJSON = require('circular-json');
 
 export class Database{
     static instance: Database|null = null;
@@ -28,10 +32,11 @@ export class Database{
 
     static writeState(){
           try {
-              fs.writeFileSync("./data/Customers.json", JSON.stringify(Management.Customers))
-              fs.writeFileSync("./data/Restaurants.json", JSON.stringify(Management.Application))
-              fs.writeFileSync("./data/Stations.json", JSON.stringify(Management.stationList))
-              fs.writeFileSync("./data/Trains.json", JSON.stringify(Management.trainList))
+              fs.writeFileSync("./data/Customers.json", JSON.stringify(Management.CustomersForStoring))
+              fs.writeFileSync("./data/Restaurants.json", CircularJSON.stringify(Management.restaurantForStoring))
+              fs.writeFileSync("./data/Stations.json", CircularJSON.stringify(Management.stationListForStoring))
+              fs.writeFileSync("./data/Trains.json", CircularJSON.stringify(Management.trainListForStoring))
+              fs.writeFileSync("./data/Agents.json", CircularJSON.stringify(Management.agentListForStoring))
           } catch (err) {
               console.error(err)
           }
@@ -42,19 +47,37 @@ export class Database{
         try {
             let arrCust = JSON.parse(fs.readFileSync("./data/Customers.json", 'utf8'));
             for (let i=0;i<arrCust.length;i++){
-                Management.Customers.push(Object.setPrototypeOf(arrCust[i], Customer.prototype));
+                let x = Object.setPrototypeOf(arrCust[i], Customer.prototype);
+                Management.Customers[x.getID()] = (x);
+                Management.loginC[x.getUsername()] = x;
+                Account.unique= Math.max(x.getID(),Account.unique);
+                Account.unique++;
             }
             arrCust = JSON.parse(fs.readFileSync("./data/Restaurants.json", 'utf8'));
             for (let i=0;i<arrCust.length;i++){
-                Management.Application.push(Object.setPrototypeOf(arrCust[i], Restaurant.prototype));
+                let x = Object.setPrototypeOf(arrCust[i], Restaurant.prototype);
+                Management.ApprovedRestaurants[x.getID()] =(x);
+                Management.loginR[x.getUsername()] = x;
+                Account.unique= Math.max(x.getID(),Account.unique);
+                Account.unique++;
             }
             arrCust = JSON.parse(fs.readFileSync("./data/Stations.json", 'utf8'));
             for (let i=0;i<arrCust.length;i++){
-                Management.stationList.push(Object.setPrototypeOf(arrCust[i], Station.prototype));
+                let x = Object.setPrototypeOf(arrCust[i], Station.prototype)
+                Management.stationList[x.getID()] = (x);
             }
             arrCust = JSON.parse(fs.readFileSync("./data/Trains.json", 'utf8'));
             for (let i=0;i<arrCust.length;i++){
-                Management.trainList.push(Object.setPrototypeOf(arrCust[i], Train.prototype));
+                let x = Object.setPrototypeOf(arrCust[i], Train.prototype);
+                Management.trainList[x.getID()] = (x);
+                Management.trainNo[x.TrainNo] = x;
+            }
+            arrCust = JSON.parse(fs.readFileSync("./data/Agents.json", 'utf8'));
+            for (let i=0;i<arrCust.length;i++){
+                let x = Object.setPrototypeOf(arrCust[i], Agent.prototype);
+                Management.agentList[x.getID()] = (x);
+                Management.loginA[x.getUsername()] = x;
+                System.active_agent.push(x);
             }
         } catch (err) {
             console.error(err)
@@ -71,7 +94,20 @@ export class Database{
         return null;
     }
     getMenu(Train : Train,  timemax : Time) : Map<string,Array<string>>{
-        return null;
+        let timemin = new Time();
+        timemin.updateTime();
+        let [rStation,rTime]=Train.Return_Route();
+        let reqStations = [];
+        for(let key of Array.from( rTime.keys()) ) {
+            if(rTime[key].lessThanEqual(timemax)&&timemin.lessThanEqual(rTime[key])){
+                reqStations.push(key);
+            }
+        }
+        let items= new Map<string,Array<string>>();
+        for(let stat of reqStations){
+            items[stat]=rStation[stat].getItem();
+        }
+        return items;
     }
     getRestaurant(username:string) : Restaurant{
         return null;    
@@ -86,3 +122,5 @@ let r = new Restaurant("Dominos", "Dom", "234", 15);
 Database.writeState();
 
 
+
+Database.readState();
