@@ -1,3 +1,4 @@
+import { readSync } from "node:fs";
 import {Item} from "./Item"
 import { Restaurant } from "./Restaurant";
 export class Menu{
@@ -13,6 +14,7 @@ export class Menu{
                 return i.price;
             }
         }
+        return -1;
     }
     addItem(Item : Item){
         this.__Items.push(Item);

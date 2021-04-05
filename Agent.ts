@@ -7,7 +7,7 @@ import { Management } from "./Management";
 export class Agent extends Account{
     private __location: Location|null;
     private __allottedorder : Order|null;
-    IsFree;
+    IsFree : string;
     restaurant : number;
     deliveredCount : number = 0;
     failedCount : number = 0;
@@ -49,5 +49,10 @@ export class Agent extends Account{
                 }
             }
         }
+    }
+    updateStatus(status: number){
+        let r = Management.ApprovedRestaurants.get(this.restaurant);
+        if(r)
+            r.updateAgentStatus(this,status);
     }
 }

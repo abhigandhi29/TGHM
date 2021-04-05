@@ -14,8 +14,8 @@ export class Restaurant extends Account{
     orderlist : Array<Order> = [];
     private __timeToReach : Array<Time> = [];
     private __agent : Array<number> = [];
-    private __agentStatus: Array<AgentStatus> = [];
-    private __agentTimeToGetBack : Array<number> = [];
+    private __agentStatus: Array<string> = [];
+    //private __agentTimeToGetBack : Array<number> = [];
     accetanceStatus = ApprovalStatus[0];
     Menu = new Menu();
     certi: Array<Certi> = [];
@@ -52,15 +52,15 @@ export class Restaurant extends Account{
     }
     AddAgent(agent : Agent){
         this.__agent.push(agent.getID());
-        this.__agentStatus.push(AgentStatus.Available);
-        this.__agentTimeToGetBack.push(0);
+        this.__agentStatus.push(AgentStatus[0]);
+        //this.__agentTimeToGetBack.push(0);
         System.active_agent.push(agent);
         agent.addRestaurant(this);
     }
     removeAgent(agent : Agent){
         let index = this.__agent.indexOf(agent.getID());
         this.__agent.slice(index);
-        this.__agentTimeToGetBack.slice(index);
+        //this.__agentTimeToGetBack.slice(index);
         this.__agentStatus.splice(index);
         System.active_agent.slice(System.active_agent.indexOf(agent));
     }
@@ -69,17 +69,15 @@ export class Restaurant extends Account{
         return this.__agent;
     }
 
-    getClosestAgent(){
-        return Math.min.apply(Math,this.__agentTimeToGetBack);   
-    }
-    allotAgent(order: Order,time : number){
-        if(time < this.getClosestAgent()){
-            let index = this.__agentTimeToGetBack.indexOf(this.getClosestAgent());
-            let ag=Management.agentList.get(this.__agent[index]);
-            if(ag)
+    //getClosestAgent(){
+    //    return Math.min.apply(Math,this.__agentTimeToGetBack);   
+    //}
+    allotAgent(order: Order,agent : Agent,time : number){
+        let index = this.__agent.indexOf(agent.getID());
+        let ag=Management.agentList.get(this.__agent[index]);
+        if(ag)
             ag.updateAllotedOrder(order);
-            this.__agentTimeToGetBack[index]  = ((+time) +(+this.__timeToReach));
-        }        
+         
     }
     updateOrderStatus(orderId : number,status : number, Item : Item){
         for(let i of this.orderlist){
@@ -101,6 +99,10 @@ export class Restaurant extends Account{
                 return i.getItemList(this);
             }
         }
+    }
+    updateAgentStatus(agent : Agent,status: number){
+        let index = this.__agent.indexOf(agent.getID());
+        this.__agentStatus[index] = AgentStatus[status];
     }
 
 
