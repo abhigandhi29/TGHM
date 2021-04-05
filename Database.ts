@@ -153,16 +153,22 @@ export class Database{
                 }
             }
         }
-        let items= new Map<string,Array<Item>>();
+        let items= Array <Item>();
         for(let stat of reqStations){
             let rs=rStation.get(stat);
             if(rs){
                 let ms=Management.stationList.get(rs);
                 if(ms)
-                items.set(stat,ms.getItem());
+                Array.prototype.push.apply(items,ms.getItem());
             }
         }
-        return items;
+        let final=new Map<string,Array<Item>>();
+        for(let x of items){
+            let c= final.get(x.type);
+            if(c)
+            c.push(x);
+        }
+        return final;
     }
     getRestaurant(username:string) : Restaurant|null{
         return null;    
