@@ -88,8 +88,8 @@ export class Database{
                 Account.unique= Math.max(x.getID(),Account.unique);
                 Account.unique++;
             }
-                let arrRest = RestaurantData;
-                for (let i=0;i<arrRest.length;i++){
+            let arrRest = RestaurantData;
+            for (let i=0;i<arrRest.length;i++){
                     let x = Object.setPrototypeOf(arrRest[i], Restaurant.prototype);
                 Management.ApprovedRestaurants.set(x.getID(),(x));
                 Management.loginR.set(x.getUsername(), x);
@@ -97,19 +97,20 @@ export class Database{
                 Account.unique++;
             }
             let arrStation = StationsData;
-            for (let i=0;i<arrCust.length;i++){
-                let x = Object.setPrototypeOf(arrCust[i], Station.prototype)
+            for (let i=0;i<arrStation.length;i++){
+                let x = Object.setPrototypeOf(arrStation[i], Station.prototype)
                 Management.stationList.set(x.getID(), (x));
             }
             let arrTrains = TrainsData;
-            for (let i=0;i<arrCust.length;i++){
-                let x = Object.setPrototypeOf(arrCust[i], Train.prototype);
+            for (let i=0;i<arrTrains.length;i++){
+                let x = Object.setPrototypeOf(arrTrains[i], Train.prototype);
                 Management.trainList.set(x.getID(), (x));
                 Management.trainNo.set(x.TrainNo, x);
             }
+            Management.trainListForStoring = Array.from(Management.trainList.values());
             let arrAgent = AgentData;
-            for (let i=0;i<arrCust.length;i++){
-                let x = Object.setPrototypeOf(arrCust[i], Agent.prototype);
+            for (let i=0;i<arrAgent.length;i++){
+                let x = Object.setPrototypeOf(arrAgent[i], Agent.prototype);
                 Management.agentList.set(x.getID(), (x));
                 Management.loginA.set(x.getUsername(), x);
                 System.active_agent.push(x);
@@ -139,35 +140,57 @@ export class Database{
         return null;
     }
 
-    getMenu(Train : Train,  timemax : Time) : Map<string,Array<Item>>{
+    static getMenu(train : Train,  timemax : Time=new Time(23,59)) : Map<string,Array<Item>>{
         let timemin = new Time();
         timemin.updateTime();
-        let rStation=Train.Return_RouteStation();
-        let rTime=Train.Return_RouteTime();
+        const rStation=train.Return_RouteStation();
+        let rTime:Map<string, Time> = new Map<string, Time> (train.Return_RouteTime());
         let reqStations = [];
-        for(let key of Array.from( rTime.keys()) ) {
+        // console.log(rTime);
+        // console.log(timemin);
+        // console.log(timemax);
+        // console.log(typeof rTime);
+        // console.log(rTime.keys());
+        for(let key of Array.from(train.routeTime.keys())) {
             let t = rTime.get(key);
+            // console.log(t);
             if(t){
                 if(t.lessThanEqual(timemax)&&timemin.lessThanEqual(t)){
                     reqStations.push(key);
                 }
             }
         }
+        console.log(reqStations);
         let items= Array <Item>();
         for(let stat of reqStations){
+            // console.log(stat);
             let rs=rStation.get(stat);
+            // console.log(rs);
             if(rs){
                 let ms=Management.stationList.get(rs);
-                if(ms)
-                Array.prototype.push.apply(items,ms.getItem());
+                console.log(typeof ms);
+                if(ms){
+                    console.log(ms.getID());
+                    Array.prototype.push.apply(items,ms.getItem());
+                    // console.log(ms.getItem());
+                }
             }
         }
-        let final=new Map<string,Array<Item>>();
+        let final=new Map<string,Array<Item>>([]);
         for(let x of items){
-            let c= final.get(x.type);
-            if(c)
-            c.push(x);
+            let c = final.get(x.type);
+            if(c) {
+                c.push(x);
+                final.set(x.type, c);
+            }
+            else{
+                c = new Array<Item>();
+                c.push(x);
+                final.set(x.type, c);
+            }
         }
+        console.log(items);
+        console.log(final);
         return final;
     }
     getRestaurant(username:string) : Restaurant|null{

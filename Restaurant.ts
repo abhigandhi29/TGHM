@@ -39,6 +39,14 @@ export class Restaurant extends Account{
             ms.addItem(item);
         }
     }
+    removeItem(item:Item){
+        this.Menu.removeItem(item);
+        for(let i of this.servingStation){
+            let ms=Management.stationList.get(i);
+            if(ms)
+            ms.removeItem(item);
+        }
+    }
     provideCerti(file : Certi){
         this.certi.push(file);
     }

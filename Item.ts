@@ -1,5 +1,6 @@
 import {FoodType} from "./Enum"
 import { Restaurant } from "./Restaurant";
+import { Time } from "./Time";
 export class Item{
     name: string;
     price: number;

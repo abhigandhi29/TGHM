@@ -23,8 +23,18 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Account.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Database.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Database.ts" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/Management.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Management.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Restaurant.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Restaurant.ts" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/Train.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Train.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/Agents.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/Agents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/Customers.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/Customers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/Restaurants.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/Restaurants.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/Stations.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/Stations.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/Trains.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/Trains.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+>>>>>>> c941b243940de116f2e5c1155bcfbd9a7aa07963
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
