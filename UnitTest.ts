@@ -192,7 +192,7 @@ function UnitTestingTime(){
 
 function UnitTestingItems(){
     console.log("-------------------------------UnitTestingItems-----------------------------");
-    let item = new Item("nomal fries",400,FoodType.Biryani,4);
+    let item = new Item("normal fries",400,FoodType.Biryani,4);
     if(item.name=="normal fries"){
         console.log("Name Verified");
     }
@@ -263,6 +263,7 @@ function UnitTestingRestaurants(){
     }
     console.log("adding Item and Adding Station working properly");
     res.allotAgent(order1,a1);
+    //console.log(order1.getAgent());
     if(order1.getAgent()[0]==a1){
         console.log("agent allotment working properly")
     }

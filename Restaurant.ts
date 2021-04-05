@@ -76,6 +76,7 @@ export class Restaurant extends Account{
     allotAgent(order: Order,agent : Agent,time : number | null= null){
         let index = this.__agent.indexOf(agent.getID());
         let ag=Management.agentList.get(this.__agent[index]);
+        order.addAgent(agent);
         if(ag)
             ag.updateAllotedOrder(order);
          
