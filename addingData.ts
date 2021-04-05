@@ -60,6 +60,7 @@ export function AddData() {
     m.updateRestarantStatus(r5, 1);
     m.updateRestarantStatus(r6, 1);
     m.updateRestarantStatus(r7, 1);
+    m.updateRestarantStatus(r8, 1);
 
     let a1 = new Agent("ramesh", "ramesh", "123", r1);
     let a2 = new Agent("ramu", "ramu", "123", r2);
