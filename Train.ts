@@ -6,8 +6,8 @@ import { Time } from "./Time";
 export class Train{
     Name:string;
     TrainNo : string;
-    private routeTime:Map<string, Time>;
-    private routeStation:Map<string,number>;
+    routeTime:Map<string, Time>;
+    routeStation:Map<string,number>;
     private __Id : number;
     constructor(name:string,TrainNo:string,route:Map<string, Time>,routeStation:Map<string, number>){
         this.Name=name;
@@ -15,16 +15,20 @@ export class Train{
         this.routeStation = new Map(routeStation);
         this.TrainNo = TrainNo;
         this.__Id  = Account.unique++;
-        Management.trainList[this.__Id] = (this);
-        Management.trainNo[TrainNo]=this;
+        Management.trainList.set(this.__Id,(this));
+        Management.trainNo.set(TrainNo,this);
         Management.trainListForStoring.push(this);
     }
     addStation(station:Station, time : Time){
-        this.routeTime[Station.name] = time;
-        this.routeStation[Station.name] = station.getID();
+        this.routeTime.set(station.name,time);
+        this.routeStation.set(station.name,station.getID());
+        console.log(this.routeTime);
     }
-    Return_Route(){
-        return [this.routeStation,this.routeTime];
+    Return_RouteTime(): Map<string, Time>{
+        return this.routeTime;
+    }
+    Return_RouteStation(): Map<string, number>{
+        return this.routeStation;
     }
     getID(){
         return this.__Id;

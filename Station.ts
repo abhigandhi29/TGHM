@@ -5,19 +5,19 @@ import { Account } from "./Account";
 
 export class Station{
     name;
-    private __restaurant: Array<Restaurant> = [];
-    private __food = new Set();
+    private __restaurant: Array<number> = [];
+    private __food = new Set<Item>();
     private __ID : number;
     deliveredCount : number = 0;
     failedCount : number = 0;
     constructor(name:string){
         this.name = name;
         this.__ID = Account.unique++; 
-        Management.stationList[this.__ID] = (this);
+        Management.stationList.set(this.__ID,(this));
         Management.stationListForStoring.push(this);
     }
     addRestaurant(restaurant:Restaurant){
-        this.__restaurant.push(restaurant);
+        this.__restaurant.push(restaurant.getID());
     }
     getRestaurant(){
         return this.__restaurant;
@@ -26,6 +26,7 @@ export class Station{
         this.__food.add(item);
     }
     getItem(){
+        console.log(this.__food);
         return Array.from(this.__food);
     }
     getID(){

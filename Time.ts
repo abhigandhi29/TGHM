@@ -20,14 +20,25 @@ export class Time{
         this.day = 0;
     }
     lessThanEqual(time:Time): boolean{
-        if(this.hour<=time.hour){
-            if(this.min<=time.min){
-                return true;
-            }
-            else{
-                return false;
-            }
+        // if(this.hour<=time.hour) {
+        //     return true;
+        // }
+        //     else{
+        //
+        //     }
+        //     if(this.min<=time.min){
+        //         return true;
+        //     }
+        //     else{
+        //         return false;
+        //     }
+        // }
+        // return false;
+        if (this.hour<time.hour) return true;
+        else if (this.hour === time.hour){
+            if (this.min <= time.min) return true;
+            else return false;
         }
-        return false;
+        else return false;
     }
 }

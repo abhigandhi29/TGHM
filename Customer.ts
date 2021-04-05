@@ -16,8 +16,8 @@ export class Customer extends Account{
     constructor(name:string,username : string, password:string, phoneNo : string){
         super(name,username,new Date(),AccountType.Customer,password);
         this.__phoneNumber = phoneNo;
-        Management.loginC[this._username] = this;
-        Management.Customers[this.getID()] = (this);
+        Management.loginC.set(this._username, this);
+        Management.Customers.set(this.getID(),(this));
         Management.CustomersForStoring.push(this);
     }
     // static converfrmObj(obj:Object) {

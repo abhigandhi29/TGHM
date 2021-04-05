@@ -34,29 +34,31 @@ export class Management extends Account{
         }
         return this.instance;
     }
+
+
     addStation(Station:Station) : void{
-        Management.stationList[Station.getID()]=(Station);
+        Management.stationList.set(Station.getID(),(Station));
        
     }
     removeStation(Station:Station) : void{
         Management.stationList.delete(Station.getID());
     }
     addTrain(Train:Train) : void{
-        Management.trainList[Train.getID()]=(Train);
+        Management.trainList.set(Train.getID(),(Train));
 
     }
     removeTrain(Train:Train) : void{
         Management.trainList.delete(Train.getID());
     }
+
     updateRestarantStatus(Restarant:Restaurant,status:number) : void{
         let x = Management.Application.indexOf(Restarant);
         Restarant.accetanceStatus = ApprovalStatus[status];
         Management.Application.slice(x);
         if(status != ApprovalStatus.Rejected){
-            Management.ApprovedRestaurants[Restarant.getID()] = (Restarant);
+            Management.ApprovedRestaurants.set(Restarant.getID(),(Restarant));
             Management.restaurantForStoring.push(Restarant);
         }
-        
     }
 }
 var m = Management.getInstance();

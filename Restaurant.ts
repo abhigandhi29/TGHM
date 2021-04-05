@@ -34,7 +34,9 @@ export class Restaurant extends Account{
         let item = new Item(s, price, type, this.getID());
         this.Menu.addItem(item);
         for(let i of this.servingStation){
-            Management.stationList[i].addItem(item);
+            let ms=Management.stationList.get(i);
+            if(ms)
+            ms.addItem(item);
         }
     }
     provideCerti(file : Certi){
@@ -55,13 +57,19 @@ export class Restaurant extends Account{
         System.active_agent.slice(System.active_agent.indexOf(agent));
     }
 
+    getAgents(){
+        return this.__agent;
+    }
+
     getClosestAgent(){
         return Math.min.apply(Math,this.__agentTimeToGetBack);   
     }
     allotAgent(order: Order,time : number){
         if(time < this.getClosestAgent()){
             let index = this.__agentTimeToGetBack.indexOf(this.getClosestAgent());
-            Management.agentList[this.__agent[index]].updateAllotedOrder(order);
+            let ag=Management.agentList.get(this.__agent[index]);
+            if(ag)
+            ag.updateAllotedOrder(order);
             this.__agentTimeToGetBack[index]  = ((+time) +(+this.__timeToReach));
         }        
     }
@@ -72,12 +80,13 @@ export class Restaurant extends Account{
             }
         }
     }
-    addStation(Station : Station, time:Time){
-        Station.addRestaurant(this);
+    addStation(station : Station, time:Time){
+        station.addRestaurant(this);
         this.__timeToReach.push(time);
         for(let i of this.Menu.getMenuItems()){
-            Station.addItem(i);
+            station.addItem(i);
         }
+        this.servingStation.push(station.getID());
     }
     getOrderDetails(orderId : number){
         for(let i of this.orderlist){
