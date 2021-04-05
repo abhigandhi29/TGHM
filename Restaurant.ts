@@ -92,6 +92,7 @@ export class Restaurant extends Account{
         for(let i of this.Menu.getMenuItems()){
             Station.addItem(i);
         }
+        this.servingStation.push(Station.getID());
     }
     getOrderDetails(orderId : number){
         for(let i of this.orderlist){

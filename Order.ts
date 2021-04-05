@@ -26,6 +26,11 @@ export class Order{
         this.__selectedItems=items;
         this.orderId = Order.unique++;
         customer.addOrder(this);
+        for(let i of items){
+            let x  = Management.ApprovedRestaurants.get(i.restaurant);
+            if(x)
+            this.__Restaurants.add(x);
+        }
     }
     setDeliveryStation(station : Station){
         this.__deliveryStation = station;

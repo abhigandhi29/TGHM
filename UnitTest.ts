@@ -1,5 +1,5 @@
 import {Account} from "./Account"
-import {AccountType,AgentStatus} from "./Enum"
+import {AccountType,AgentStatus, FoodType} from "./Enum"
 import {Menu} from "./Menu"
 import {Management} from "./Management"
 import {Item} from "./Item"
@@ -84,7 +84,7 @@ r8.addStation(s2, new Time(0, 40));
 r8.addStation(s5, new Time(0, 10));
 
 
-r1.addItem("cheese fries", 60, 8);
+r1.addItem("cheese fries", 600, 8);
 r1.addItem("veggie potato burger", 60, 0);
 r1.addItem("chicken burger", 60, 0);
 r1.addItem("veg whopper", 60, 0);
@@ -128,7 +128,7 @@ r8.addItem("fish nuggets", 360, 17);
 r8.addItem("prawns", 700, 20);
 
 function UnitTestingManagement(){
-    console.log("-----------------------------UnitTestingManagement----------------------------");
+    console.log("----------------------UnitTestingManagementAndAccount----------------------------");
     console.log(m.getID());
     let m2 = Management.getInstance();
     if(m.getID()!=0){
@@ -172,8 +172,19 @@ function UnitTestingManagement(){
 
 function UnitTestingTime(){
     console.log("-------------------------------UnitTestingTime---------------------------------");
-    if(c1.getID()!=1 || c2.getID()!=2 || c3.getID()!= 3){
-        console.log("error in unique ID");
+    let time = new Time(1,30);
+    if(time.min === 30 && time.hour===1){
+        console.log("Correct initilisation");
+    }
+    let time2 = new Time(1,29);
+    let time3 = new Time(0,23);
+    if(!time.lessThanEqual(time2) && time3.lessThanEqual(time)){
+        console.log("LessthanequalWorking");
+    }
+    let d = new Date();
+    time.updateTime();
+    if(time.min === d.getMinutes() && time.hour===d.getHours()){
+        console.log("update working fine");
     }
 
     console.log("-------------------------------------------------------------------------------");
@@ -181,19 +192,39 @@ function UnitTestingTime(){
 
 function UnitTestingItems(){
     console.log("-------------------------------UnitTestingItems-----------------------------");
-    if(c1.getID()!=1 || c2.getID()!=2 || c3.getID()!= 3){
-        console.log("error in unique ID");
+    let item = new Item("nomal fries",400,FoodType.Biryani,4);
+    if(item.name=="normal fries"){
+        console.log("Name Verified");
     }
-
+    if(item.price==400){
+        console.log("Price Verified");
+    }
+    if(item.type==FoodType[FoodType.Biryani]){
+        console.log("item type Verified");
+    }
+    if(item.restaurant==4){
+        console.log("Restaurant Verified");
+    }
     console.log("-------------------------------------------------------------------------------");
 }
 
 function UnitTestingMenu(){
     console.log("-------------------------------UnitTestingMenu--------------------------------");
-    if(c1.getID()!=1 || c2.getID()!=2 || c3.getID()!= 3){
-        console.log("error in unique ID");
+    let menu = r1.Menu;
+    if(menu.getPrice("cheese fries")==600){
+        console.log("get price functionality working");
     }
-
+    menu.addItembyName("momos",50,FoodType.Momos,r1.getID());
+    if(menu.getPrice("momos")==50){
+        console.log("Add Item functionality working properly");
+    }
+    let item = new Item("momos2",500,FoodType.Momos,r1.getID());
+    if(menu.getPrice("momos2")==500){
+        menu.removeItem(item);
+        if(menu.getPrice("momos2")==-1){
+            console.log("Remove fuctionality working properly");
+        }
+    }
     console.log("-------------------------------------------------------------------------------");
 }
 
@@ -217,19 +248,21 @@ function UnitTestingOrders(){
 
 function UnitTestingAgents(){
     console.log("-------------------------------UnitTestingAgents-------------------------------");
-    if(c1.getID()!=1 || c2.getID()!=2 || c3.getID()!= 3){
-        console.log("error in unique ID");
-    }
 
     console.log("-------------------------------------------------------------------------------");
 }
 
 function UnitTestingStations(){
     console.log("-------------------------------UnitTestingStations-----------------------------");
-    if(c1.getID()!=1 || c2.getID()!=2 || c3.getID()!= 3){
-        console.log("error in unique ID");
-    }
+    let statiom = s1;
 
+    if(s1.getRestaurant()==[r1.getID(),r8.getID()]){
+        console.log("Adding Station working");
+    }
+    //console.log(s1.getRestaurant(),r1.getID(),r8.getID())
+    if(s1.getItem().length==11){
+        console.log("Adding Item working");
+    }
     console.log("-------------------------------------------------------------------------------");
 }
 
