@@ -17,7 +17,8 @@ export class Customer extends Account{
         super(name,username,new Date(),AccountType.Customer,password);
         this.__phoneNumber = phoneNo;
         Management.loginC[this._username] = this;
-        Management.Customers.push(this);
+        Management.Customers[this.getID()] = (this);
+        Management.CustomersForStoring.push(this);
     }
     // static converfrmObj(obj:Object) {
     //     let c: Customer = new Customer(obj._name, obj._password, obj._phoneNo);

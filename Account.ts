@@ -28,4 +28,7 @@ export class Account{
     getOpenDate(){
         return this._openDate;
     }
+    getUsername(){
+        return this._username;
+    }
 }

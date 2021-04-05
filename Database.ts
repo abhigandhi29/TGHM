@@ -11,6 +11,7 @@ import {Train} from './Train';
 import {Management} from './Management';
 import { readFile } from 'node:fs';
 import { Account } from './Account';
+import { System } from './System';
 
 
 const fs = require("fs");
@@ -31,10 +32,11 @@ export class Database{
 
     static writeState(){
           try {
-              fs.writeFileSync("./data/Customers.json", JSON.stringify(Management.Customers))
-              fs.writeFileSync("./data/Restaurants.json", CircularJSON.stringify(Management.ApprovedRestaurants))
-              fs.writeFileSync("./data/Stations.json", CircularJSON.stringify(Management.stationList))
-              fs.writeFileSync("./data/Trains.json", CircularJSON.stringify(Management.trainList))
+              fs.writeFileSync("./data/Customers.json", JSON.stringify(Management.CustomersForStoring))
+              fs.writeFileSync("./data/Restaurants.json", CircularJSON.stringify(Management.restaurantForStoring))
+              fs.writeFileSync("./data/Stations.json", CircularJSON.stringify(Management.stationListForStoring))
+              fs.writeFileSync("./data/Trains.json", CircularJSON.stringify(Management.trainListForStoring))
+              fs.writeFileSync("./data/Agents.json", CircularJSON.stringify(Management.agentListForStoring))
           } catch (err) {
               console.error(err)
           }
@@ -46,24 +48,36 @@ export class Database{
             let arrCust = JSON.parse(fs.readFileSync("./data/Customers.json", 'utf8'));
             for (let i=0;i<arrCust.length;i++){
                 let x = Object.setPrototypeOf(arrCust[i], Customer.prototype);
-                Management.Customers.push(x);
+                Management.Customers[x.getID()] = (x);
+                Management.loginC[x.getUsername()] = x;
                 Account.unique= Math.max(x.getID(),Account.unique);
                 Account.unique++;
             }
             arrCust = JSON.parse(fs.readFileSync("./data/Restaurants.json", 'utf8'));
             for (let i=0;i<arrCust.length;i++){
                 let x = Object.setPrototypeOf(arrCust[i], Restaurant.prototype);
-                Management.ApprovedRestaurants.push(x);
+                Management.ApprovedRestaurants[x.getID()] =(x);
+                Management.loginR[x.getUsername()] = x;
                 Account.unique= Math.max(x.getID(),Account.unique);
                 Account.unique++;
             }
             arrCust = JSON.parse(fs.readFileSync("./data/Stations.json", 'utf8'));
             for (let i=0;i<arrCust.length;i++){
-                Management.stationList.push(Object.setPrototypeOf(arrCust[i], Station.prototype));
+                let x = Object.setPrototypeOf(arrCust[i], Station.prototype)
+                Management.stationList[x.getID()] = (x);
             }
             arrCust = JSON.parse(fs.readFileSync("./data/Trains.json", 'utf8'));
             for (let i=0;i<arrCust.length;i++){
-                Management.trainList.push(Object.setPrototypeOf(arrCust[i], Train.prototype));
+                let x = Object.setPrototypeOf(arrCust[i], Train.prototype);
+                Management.trainList[x.getID()] = (x);
+                Management.trainNo[x.TrainNo] = x;
+            }
+            arrCust = JSON.parse(fs.readFileSync("./data/Agents.json", 'utf8'));
+            for (let i=0;i<arrCust.length;i++){
+                let x = Object.setPrototypeOf(arrCust[i], Agent.prototype);
+                Management.agentList[x.getID()] = (x);
+                Management.loginA[x.getUsername()] = x;
+                System.active_agent.push(x);
             }
         } catch (err) {
             console.error(err)
