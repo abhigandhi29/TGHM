@@ -275,8 +275,12 @@ function UnitTestingRestaurants(){
 function UnitTestingAgents(){
     console.log("-------------------------------UnitTestingAgents-------------------------------");
     let agent = a1;
-    
-    
+    if(agent.getAlocatedOrder() == order1){
+        console.log("order allotment working properly");
+    }
+    if(agent.restaurant == r1.getID()){
+        console.log("restaurant allotment working properly");
+    }
     console.log("-------------------------------------------------------------------------------");
 }
 

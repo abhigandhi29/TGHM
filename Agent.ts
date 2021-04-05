@@ -56,4 +56,7 @@ export class Agent extends Account{
         if(r)
             r.updateAgentStatus(this,status);
     }
+    getAlocatedOrder(){
+        return this.__allottedorder;
+    }
 }
