@@ -55,6 +55,10 @@ export class Restaurant extends Account{
         System.active_agent.slice(System.active_agent.indexOf(agent));
     }
 
+    getAgents(){
+        return this.__agent;
+    }
+
     getClosestAgent(){
         return Math.min.apply(Math,this.__agentTimeToGetBack);   
     }

@@ -12,10 +12,15 @@ import {Management} from './Management';
 import { readFile } from 'node:fs';
 import { Account } from './Account';
 import { System } from './System';
+import CustomerData from "./data/Customers.json";
+import RestaurantData from "./data/Restaurants.json";
+import StationsData from "./data/Stations.json";
+import TrainsData from "./data/Trains.json";
+import AgentData from "./data/Agents.json";
 
 
-const fs = require("fs");
-const CircularJSON = require('circular-json');
+// const fs = require("fs");
+// const CircularJSON = require('circular-json');
 
 export class Database{
     static instance: Database|null = null;
@@ -30,22 +35,52 @@ export class Database{
         return this.instance;
     }
 
-    static writeState(){
-          try {
-              fs.writeFileSync("./data/Customers.json", JSON.stringify(Management.CustomersForStoring))
-              fs.writeFileSync("./data/Restaurants.json", CircularJSON.stringify(Management.restaurantForStoring))
-              fs.writeFileSync("./data/Stations.json", CircularJSON.stringify(Management.stationListForStoring))
-              fs.writeFileSync("./data/Trains.json", CircularJSON.stringify(Management.trainListForStoring))
-              fs.writeFileSync("./data/Agents.json", CircularJSON.stringify(Management.agentListForStoring))
-          } catch (err) {
-              console.error(err)
-          }
+    static async writeState() {
+        try {
+            // fs.writeFile("./data/Customers.json", JSON.stringify(Management.Customers), function (){})
+            // fs.writeFile("./data/Restaurants.json", JSON.stringify(Management.Application), function (){})
+            // fs.writeFile("./data/Stations.json", JSON.stringify(Management.stationList), function (){})
+            // fs.writeFile("./data/Trains.json", JSON.stringify(Management.trainList), function (){})
+            // await writeJsonFile('./data/Customers.json', JSON.stringify(Management.Customers));
+            console.log(Management.Customers);
+        } catch (err) {
+            console.error(err)
+        }
     }
+
+
+    // static readState(){
+    //     try {
+    //         let arrCust = CustomerData;
+    //         for (let i=0;i<arrCust.length;i++){
+    //             Management.Customers.push(Object.setPrototypeOf(arrCust[i], Customer.prototype));
+    //             Management.loginC.set(arrCust[i]._username, Object.setPrototypeOf(arrCust[i], Customer.prototype))
+    //         }
+    //         let arrRest = RestaurantData;
+    //         console.log(RestaurantData);
+    //         for (let i=0;i<arrRest.length;i++){
+    //             Management.Application.push(Object.setPrototypeOf(arrRest[i], Restaurant.prototype));
+    //             Management.loginR.set(arrRest[i]._username, Object.setPrototypeOf(arrRest[i], Restaurant.prototype))
+    //         }
+    //         console.log(Management.loginR);
+    //         let arrStation = StationsData;
+    //         for (let i=0;i<arrStation.length;i++){
+    //             Management.stationList.push(Object.setPrototypeOf(arrStation[i], Station.prototype));
+    //         }
+    //         let arrTrain = TrainsData;
+    //         for (let i=0;i<arrTrain.length;i++){
+    //             Management.trainList.push(Object.setPrototypeOf(arrTrain[i], Train.prototype));
+    //         }
+    //     } catch (err) {
+    //         console.error(err)
+    //         return false
+    //     }
+    // }
 
 
     static readState(){
         try {
-            let arrCust = JSON.parse(fs.readFileSync("./data/Customers.json", 'utf8'));
+            let arrCust = CustomerData;
             for (let i=0;i<arrCust.length;i++){
                 let x = Object.setPrototypeOf(arrCust[i], Customer.prototype);
                 Management.Customers[x.getID()] = (x);
@@ -53,28 +88,28 @@ export class Database{
                 Account.unique= Math.max(x.getID(),Account.unique);
                 Account.unique++;
             }
-            arrCust = JSON.parse(fs.readFileSync("./data/Restaurants.json", 'utf8'));
-            for (let i=0;i<arrCust.length;i++){
-                let x = Object.setPrototypeOf(arrCust[i], Restaurant.prototype);
+            let arrRest = RestaurantData;
+            for (let i=0;i<arrRest.length;i++){
+                let x = Object.setPrototypeOf(arrRest[i], Restaurant.prototype);
                 Management.ApprovedRestaurants[x.getID()] =(x);
                 Management.loginR[x.getUsername()] = x;
                 Account.unique= Math.max(x.getID(),Account.unique);
                 Account.unique++;
             }
-            arrCust = JSON.parse(fs.readFileSync("./data/Stations.json", 'utf8'));
-            for (let i=0;i<arrCust.length;i++){
-                let x = Object.setPrototypeOf(arrCust[i], Station.prototype)
+            let arrStation = StationsData;
+            for (let i=0;i<arrStation.length;i++){
+                let x = Object.setPrototypeOf(arrStation[i], Station.prototype)
                 Management.stationList[x.getID()] = (x);
             }
-            arrCust = JSON.parse(fs.readFileSync("./data/Trains.json", 'utf8'));
-            for (let i=0;i<arrCust.length;i++){
-                let x = Object.setPrototypeOf(arrCust[i], Train.prototype);
+            let arrTrains = TrainsData;
+            for (let i=0;i<arrTrains.length;i++){
+                let x = Object.setPrototypeOf(arrTrains[i], Train.prototype);
                 Management.trainList[x.getID()] = (x);
                 Management.trainNo[x.TrainNo] = x;
             }
-            arrCust = JSON.parse(fs.readFileSync("./data/Agents.json", 'utf8'));
-            for (let i=0;i<arrCust.length;i++){
-                let x = Object.setPrototypeOf(arrCust[i], Agent.prototype);
+            let arrAgent = AgentData;
+            for (let i=0;i<arrAgent.length;i++){
+                let x = Object.setPrototypeOf(arrAgent[i], Agent.prototype);
                 Management.agentList[x.getID()] = (x);
                 Management.loginA[x.getUsername()] = x;
                 System.active_agent.push(x);
@@ -84,15 +119,26 @@ export class Database{
             return false
         }
     }
-    loginStatus(username:string, password:string) : string{
-        return AccountType[0];
-    }
-    getCustomer(username:string) : Customer{
+
+    static AuthenticateUser(username:string, password:string): string|null{
+        let l = Management.loginC.get(username);
+        console.log(l);
+        if (l !== undefined){
+            if (l.checkPassword(password)) return l.getUsername();
+        }
+        let r = Management.loginR.get(username);
+        console.log(Management.loginR);
+        console.log(r);
+        if (r !== undefined){
+            if (r.checkPassword(password)) return r.getUsername();
+        }
+        let a = Management.loginA.get(username);
+        if (a !== undefined){
+            if (a.checkPassword(password)) return a.getUsername();
+        }
         return null;
     }
-    getTrain(trainNo:string) : Train | null{
-        return null;
-    }
+
     getMenu(Train : Train,  timemax : Time) : Map<string,Array<string>>{
         let timemin = new Time();
         timemin.updateTime();
@@ -109,18 +155,18 @@ export class Database{
         }
         return items;
     }
-    getRestaurant(username:string) : Restaurant{
+    getRestaurant(username:string) : Restaurant|null{
         return null;    
     }
-    getAgent(username:string) : Agent{
+    getAgent(username:string) : Agent|null{
         return null;
     }
 }
 
-let c = new Customer("Shashvat", "Shash", "123", "123456789");
-let r = new Restaurant("Dominos", "Dom", "234", 15);
-Database.writeState();
-
-
-
-Database.readState();
+// let c = new Customer("Shashvat", "Shash", "123", "123456789");
+// let r = new Restaurant("Dominos", "Dom", "234", 15);
+// Database.writeState();
+//
+//
+//
+// Database.readState();

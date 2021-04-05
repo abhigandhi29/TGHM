@@ -28,6 +28,9 @@ export class Account{
     getOpenDate(){
         return this._openDate;
     }
+    checkPassword(password:string):boolean{
+        return (this._password === password);
+    }
     getUsername(){
         return this._username;
     }
