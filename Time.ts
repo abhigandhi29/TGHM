@@ -13,11 +13,15 @@ export class Time{
         let t = new Time(date.getHours(),date.getMinutes());
         return t;
     }
-    updateTime(){
+    updateTime() : void {
         let date  = new Date();
         this.min = date.getMinutes();
         this.hour = date.getHours();
         this.day = 0;
+    }
+    static getCurrentTime() : Time{
+        let d = new Date();
+        return new Time(d.getHours(),d.getMinutes());
     }
     lessThanEqual(time:Time): boolean{
         // if(this.hour<=time.hour) {

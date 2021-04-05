@@ -103,6 +103,13 @@ export class Restaurant extends Account{
             }
         }
     }
+    getOrderStations(orderId: number){
+        for(let i of this.orderlist){
+            if(i.orderId ==orderId){
+                return i.getOrderStations(this);
+            }
+        }
+    }
     updateAgentStatus(agent : Agent,status: number){
         let index = this.__agent.indexOf(agent.getID());
         this.__agentStatus[index] = AgentStatus[status];

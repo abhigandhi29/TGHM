@@ -246,7 +246,7 @@ function UnitTestingOrders(){
     }
     if(x){
         order1.updateOrderStatus(4,x[0]);
-        if(order1.Order_Status[0] == OrderStatus[4]){
+        if(order1.getOrderStatus()[1][0] == OrderStatus[4]){
             console.log("update order status working properly");
         }
     }
