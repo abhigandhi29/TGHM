@@ -29,6 +29,30 @@ We wanted to expand the avenues of the food delivery facilities currently presen
 
 The project version 1.0 stands completed.  
 
+## Running Testing file
+
+firstly we need to install nvm 
+
+```bash
+sudo apt-get update
+sudo apt-get install build-essential libssl-dev
+curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash
+curl https://raw.githubusercontent.com/creationix/nvm/v0.30.2/install.sh | bash
+source ~/.profile
+npm install requirejs
+npm install circular-json
+npm install nodejs
+npm install -g typescript
+```
+
+for running testing script simply type in.
+
+```
+node-js UnitTest.ts
+```
+
+
+
 ## Credits
 
 The team:
