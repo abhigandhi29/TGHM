@@ -21,4 +21,10 @@ export class Menu{
         let item = new Item(name, price, type,restaurant);
         this.__Items.push(item);
     }
+    removeItem(item: Item){
+        this.__Items.forEach((value,index)=>{
+            if(value==item) this.__Items.splice(index,1);
+            return;
+        });
+    }
 }
