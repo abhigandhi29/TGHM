@@ -80,7 +80,20 @@ export class Database{
         return null;
     }
     getMenu(Train : Train,  timemax : Time) : Map<string,Array<string>>{
-        return null;
+        let timemin = new Time();
+        timemin.updateTime();
+        let [rStation,rTime]=Train.Return_Route();
+        let reqStations = [];
+        for(let key of Array.from( rTime.keys()) ) {
+            if(rTime[key].lessThanEqual(timemax)&&timemin.lessThanEqual(rTime[key])){
+                reqStations.push(key);
+            }
+        }
+        let items= new Map<string,Array<string>>();
+        for(let stat of reqStations){
+            items[stat]=rStation[stat].getItem();
+        }
+        return items;
     }
     getRestaurant(username:string) : Restaurant{
         return null;    

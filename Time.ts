@@ -18,5 +18,16 @@ export class Time{
         this.min = date.getMinutes();
         this.hour = date.getHours();
         this.day = 0;
-    }  
+    }
+    lessThanEqual(time:Time): boolean{
+        if(this.hour<=time.hour){
+            if(this.min<=time.min){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        return false;
+    }
 }
