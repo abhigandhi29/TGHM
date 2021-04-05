@@ -34,6 +34,8 @@ export class Management extends Account{
         }
         return this.instance;
     }
+
+
     addStation(Station:Station) : void{
         Management.stationList.set(Station.getID(),(Station));
        
@@ -48,6 +50,7 @@ export class Management extends Account{
     removeTrain(Train:Train) : void{
         Management.trainList.delete(Train.getID());
     }
+
     updateRestarantStatus(Restarant:Restaurant,status:number) : void{
         let x = Management.Application.indexOf(Restarant);
         Restarant.accetanceStatus = ApprovalStatus[status];
@@ -56,7 +59,6 @@ export class Management extends Account{
             Management.ApprovedRestaurants.set(Restarant.getID(),(Restarant));
             Management.restaurantForStoring.push(Restarant);
         }
-        
     }
 }
 var m = Management.getInstance();

@@ -40,10 +40,13 @@ export class Agent extends Account{
 
     updateOrderStatus(Status : number){
         if (this.__allottedorder) {
-            let items = Management.ApprovedRestaurants.get(this.restaurant).getOrderDetails(this.__allottedorder.orderId);
-            if (items) {
-                for (let i of items)
-                    this.__allottedorder.updateOrderStatus(Status, i);
+            let ar=Management.ApprovedRestaurants.get(this.restaurant);
+            if(ar){
+                let items = ar.getOrderDetails(this.__allottedorder.orderId);
+                if (items) {
+                    for (let i of items)
+                        this.__allottedorder.updateOrderStatus(Status, i);
+                }
             }
         }
     }

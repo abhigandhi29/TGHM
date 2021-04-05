@@ -15,16 +15,19 @@ export class Train{
         this.routeStation = new Map(routeStation);
         this.TrainNo = TrainNo;
         this.__Id  = Account.unique++;
-        Management.trainList[this.__Id] = (this);
-        Management.trainNo[TrainNo]=this;
+        Management.trainList.set(this.__Id,(this));
+        Management.trainNo.set(TrainNo,this);
         Management.trainListForStoring.push(this);
     }
     addStation(station:Station, time : Time){
-        this.routeTime[Station.name] = time;
-        this.routeStation[Station.name] = station.getID();
+        this.routeTime.set(Station.name,time);
+        this.routeStation.set(Station.name,station.getID());
     }
-    Return_Route(){
-        return [this.routeStation,this.routeTime];
+    Return_RouteTime(){
+        return this.routeTime;
+    }
+    Return_RouteStation(){
+        return this.routeStation;
     }
     getID(){
         return this.__Id;

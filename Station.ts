@@ -6,14 +6,14 @@ import { Account } from "./Account";
 export class Station{
     name;
     private __restaurant: Array<Restaurant> = [];
-    private __food = new Set();
+    private __food = new Set<Item>();
     private __ID : number;
     deliveredCount : number = 0;
     failedCount : number = 0;
     constructor(name:string){
         this.name = name;
         this.__ID = Account.unique++; 
-        Management.stationList[this.__ID] = (this);
+        Management.stationList.set(this.__ID,(this));
         Management.stationListForStoring.push(this);
     }
     addRestaurant(restaurant:Restaurant){

@@ -35,7 +35,10 @@ export class Order{
     }
     addItem(Item : Item){
         this.__selectedItems.push(Item);
-        this.__Restaurants.add(Management.ApprovedRestaurants[Item.restaurant]);
+        let ar=Management.ApprovedRestaurants.get(Item.restaurant);
+        if(ar){
+        this.__Restaurants.add(ar);
+        }
         this.Order_Status.push(OrderStatus[0]);
     }
     Track_Order(){
