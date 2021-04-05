@@ -81,4 +81,8 @@ export class Database{
     }
 }
 
+let c = new Customer("Shashvat", "Shash", "123", "123456789");
+let r = new Restaurant("Dominos", "Dom", "234", 15);
+Database.writeState();
+
 
