@@ -140,7 +140,7 @@ export class Database{
         return null;
     }
 
-    static getMenu(train : Train,  timemax : Time) : Map<string,Array<Item>>{
+    static getMenu(train : Train,  timemax : Time=new Time(23,59)) : Map<string,Array<Item>>{
         let timemin = new Time();
         timemin.updateTime();
         const rStation=train.Return_RouteStation();
@@ -171,9 +171,9 @@ export class Database{
                 console.log(typeof ms);
                 if(ms){
                     console.log(ms.getID());
-
-                Array.prototype.push.apply(items,ms.getItem());
-                console.log(ms.getItem());}
+                    Array.prototype.push.apply(items,ms.getItem());
+                    // console.log(ms.getItem());
+                }
             }
         }
         let final=new Map<string,Array<Item>>([]);
@@ -199,7 +199,6 @@ export class Database{
     getAgent(username:string) : Agent|null{
         return null;
     }
-
 }
 
 // let c = new Customer("Shashvat", "Shash", "123", "123456789");

@@ -25,6 +25,9 @@ export class Station{
     addItem(item: Item){
         this.__food.add(item);
     }
+    removeItem(item: Item){
+        this.__food.delete(item);
+    }
     getItem(){
         //console.log(this.__food);
         return Array.from(this.__food);

@@ -41,4 +41,32 @@ export class Time{
         }
         else return false;
     }
+
+    dif(time:Time){
+        if(this.lessThanEqual(time)){
+            return new Time();
+        }
+        else{
+            let t=new Time();
+            t.hour=this.hour-time.hour;
+            t.min=this.min-time.min;
+            if(t.min<0){
+                t.min+=60;
+                t.hour--;
+            }
+            return t;
+        }
+    }
+    sum(time:Time){
+        let t=new Time();
+            t.hour=this.hour+time.hour;
+            t.min=this.min+time.min;
+            if(t.min>59){
+                t.hour+=Math.floor(t.min/60);
+                t.day+=Math.floor(t.hour/24);
+                t.hour%=24;
+                t.min%=60;
+            }
+            return t;
+    }
 }

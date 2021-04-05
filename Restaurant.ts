@@ -39,6 +39,14 @@ export class Restaurant extends Account{
             ms.addItem(item);
         }
     }
+    removeItem(item:Item){
+        this.Menu.removeItem(item);
+        for(let i of this.servingStation){
+            let ms=Management.stationList.get(i);
+            if(ms)
+            ms.removeItem(item);
+        }
+    }
     provideCerti(file : Certi){
         this.certi.push(file);
     }
@@ -80,13 +88,12 @@ export class Restaurant extends Account{
             }
         }
     }
-    addStation(station : Station, time:Time){
-        station.addRestaurant(this);
+    addStation(Station : Station, time:Time){
+        Station.addRestaurant(this);
         this.__timeToReach.push(time);
         for(let i of this.Menu.getMenuItems()){
-            station.addItem(i);
+            Station.addItem(i);
         }
-        this.servingStation.push(station.getID());
     }
     getOrderDetails(orderId : number){
         for(let i of this.orderlist){
