@@ -140,12 +140,13 @@ export class Database{
         return null;
     }
 
-    static getMenu(train : Train,  timemax : Time=new Time(23,59)) : Map<string,Array<Item>>{
+    static getMenu(train : Train,  timemax : Time=new Time(23,59)) : [Map<string,Array<Item>>,Map<string,Array<Time>>]{
         let timemin = new Time();
         timemin.updateTime();
         const rStation=train.Return_RouteStation();
         let rTime:Map<string, Time> = new Map<string, Time> (train.Return_RouteTime());
         let reqStations = [];
+        let time = [];
         // console.log(rTime);
         // console.log(timemin);
         // console.log(timemax);
@@ -157,11 +158,14 @@ export class Database{
             if(t){
                 if(t.lessThanEqual(timemax)&&timemin.lessThanEqual(t)){
                     reqStations.push(key);
+                    time.push(t);
                 }
             }
         }
         console.log(reqStations);
         let items= Array <Item>();
+        let times =  Array <Time>();
+        let i=0;
         for(let stat of reqStations){
             // console.log(stat);
             let rs=rStation.get(stat);
@@ -172,26 +176,39 @@ export class Database{
                 if(ms){
                     console.log(ms.getID());
                     Array.prototype.push.apply(items,ms.getItem());
+                    for(let x of ms.getItem()){
+                        times.push(time[i]);
+                    }
                     // console.log(ms.getItem());
                 }
             }
+            i++;
         }
         let final=new Map<string,Array<Item>>([]);
+        let final2 = new Map<string,Array<Time>>([]);
+        i=0;
         for(let x of items){
             let c = final.get(x.type);
-            if(c) {
+            let d = final2.get(x.type);
+            if(c && d) {
                 c.push(x);
+                d.push(times[i]);
                 final.set(x.type, c);
+                final2.set(x.type, d);
             }
             else{
                 c = new Array<Item>();
                 c.push(x);
                 final.set(x.type, c);
+                d = new Array<Time>();
+                d.push(times[i]);
+                final2.set(x.type, d);
             }
+            i++;
         }
         console.log(items);
         console.log(final);
-        return final;
+        return [final,final2];
     }
     getRestaurant(username:string) : Restaurant|null{
         return null;    
