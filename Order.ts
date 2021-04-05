@@ -20,6 +20,7 @@ export class Order{
     orderId;
     constructor(customer:Customer,status:number=0,items:Array<Item>,seat_Number:string,train:Train, delivery_station:Station){
         this.__customer=customer;
+        customer.addOrder(this);
         this.__seatNumber=seat_Number;
         this.__train=train;
         this.__deliveryStation=delivery_station;
