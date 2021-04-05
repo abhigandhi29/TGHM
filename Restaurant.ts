@@ -107,6 +107,19 @@ export class Restaurant extends Account{
         let index = this.__agent.indexOf(agent.getID());
         this.__agentStatus[index] = AgentStatus[status];
     }
+    getFreeAgents() : Array<Agent>{
+        let i=0;
+        let v : Array<Agent> = [];
+        for(let x of this.__agentStatus){
+            if(x==AgentStatus[0]){
+                let y = Management.agentList.get(this.__agent[i])
+                if(y)
+                v.push(y);
+            }
+            i++;
+        }
+        return v;
+    }
 
 
 }
